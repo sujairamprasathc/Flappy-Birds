@@ -11,7 +11,7 @@ if( SDL_Init( SDL_INIT_EVERYTHING ) < 0 )   //Starting initiation
     return false;
 if( TTF_Init() != 0 )   //Initialize SDL2_ttf
     return false;
-if( Mix_Init( MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MODPLUG | MIX_INIT_MP3 | MIX_INIT_OGG |MIX_INIT_FLUIDSYNTH ) < 6 )    //Initialize all music types
+if( Mix_Init( MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG ) < 6 )    //Initialize all music types
     return false;
 if ( IMG_Init( IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF | IMG_INIT_WEBP ) < 4 )
     return false;
