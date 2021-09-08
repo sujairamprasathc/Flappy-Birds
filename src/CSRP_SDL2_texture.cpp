@@ -67,7 +67,6 @@ bool SDL2Texture::loadFromFile( std::string path )
 	return mTexture != NULL;
 }
 
-#ifdef _SDL_TTF_H
 bool SDL2Texture::loadFromRenderedText( std::string textureText, SDL_Color textColor, int wrapLength )
 {
 	//Get rid of preexisting texture
@@ -102,7 +101,6 @@ bool SDL2Texture::loadFromRenderedText( std::string textureText, SDL_Color textC
 	//Return success
 	return mTexture != NULL;
 }
-#endif
 
 void SDL2Texture::free()
 {

@@ -34,10 +34,8 @@ class SDL2Texture
 		//Loads image at specified path
 		bool loadFromFile( std::string path );
 		
-		#ifdef _SDL_TTF_H
 		//Creates image from font string
 		bool loadFromRenderedText( std::string textureText, SDL_Color textColor, int wrapLength );
-		#endif
 
 		//Deallocates texture
 		void free();
@@ -68,10 +66,8 @@ class SDL2Texture
 		//Renderer
 		SDL_Renderer *gRenderer;
 
-		#ifdef _SDL_TTF_H
 		//Font to use
 		TTF_Font *gFont;
-		#endif
 
 		//Image dimensions
 		int mWidth;
