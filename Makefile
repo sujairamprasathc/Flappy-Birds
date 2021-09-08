@@ -9,8 +9,11 @@ CFLAGS = -Wall -Wextra -I include
 LIB = -lGL -lGLU -lglut -lSDL2 -lSDL2_ttf -lSDL2_mixer -lSDL2_image -lSDL2_gfx
 
 
-Flappy-Birds : bin $(source) $(GAME_ENGINE) $(CSRP_SDL2_widgets) $(CSRP_SDL2_windows)
+Flappy-Birds : bin $(source) $(GAME_ENGINE) $(CSRP_SDL2_widgets) $(CSRP_SDL2_windows) copy_res
 	g++ -o bin/Flappy-Birds $(CFLAGS) $(LIB) $(source)
+
+copy_res:
+	cp -a res/. bin/
 
 bin/CSRP_SDL2_widgets.o : $(CSRP_SDL2_widgets)
 	g++ -o bin/CSRP_SDL2_widgets.o -c src/CSRP_SDL2_widgets.cpp $(CFLAGS)
