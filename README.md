@@ -24,8 +24,9 @@ freeglut3-dev
 ## Build Instructions
 
 ```bash
+cd Flappy-Birds
+cmake -S ./ -b ./bin
+cd bin
 make
 ```
 
-Just running make in the project root directory should be sufficient to build the application.
-The output will be placed in bin directory.
