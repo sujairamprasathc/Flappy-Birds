@@ -7,7 +7,7 @@ GamePageController::GamePageController(GamePageView *view, GamePageModel *model)
   this->model = model;
 }
 
-bool GamePageController::handleEvent(unsigned char key, int x, int y) {
+bool GamePageController::keyPressed(unsigned char key, int x, int y) {
   /*
   Nothing much to do, just change states, except for few
   key strokes, which require action
@@ -35,5 +35,15 @@ bool GamePageController::handleEvent(unsigned char key, int x, int y) {
 
   for (int i = 0; i < 256; i++)
     if (key == i) is_Key_Pressed[i] = true;
-  return false;
+
+  return true;
+}
+
+bool GamePageController::keyReleased(unsigned char key, int x, int y) {
+  /*
+  Nothing much to do, just change states
+  */
+  for (int i = 0; i < 256; i++)
+    if (key == i) is_Key_Pressed[i] = false;
+  return true;
 }

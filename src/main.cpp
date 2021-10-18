@@ -306,19 +306,11 @@ static void resize(int width, int height) {
 }
 
 void keyPressed(unsigned char key, int x, int y) {
-  /*
-  Nothing much to do, just change states, except for few
-  key strokes, which require action
-  */
-  gamePageController.handleEvent(key, x, y);
+  gamePageController.keyPressed(key, x, y);
 }
 
 void keyReleased(unsigned char key, int x, int y) {
-  /*
-  Nothing much to do, just change states
-  */
-  for (int i = 0; i < 256; i++)
-    if (key == i) is_Key_Pressed[i] = false;
+  gamePageController.keyReleased(key, x, y);
 }
 
 /*The ultimate function*/

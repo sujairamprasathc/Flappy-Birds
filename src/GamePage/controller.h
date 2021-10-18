@@ -19,7 +19,8 @@ class GamePageController {
 
  public:
   GamePageController(GamePageView *, GamePageModel *);
-  bool handleEvent(unsigned char, int, int);
+  bool keyPressed(unsigned char, int, int);
+  bool keyReleased(unsigned char, int, int);
 };
 
 #endif  // GAME_PAGE_CONTROLLER_H
