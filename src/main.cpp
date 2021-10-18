@@ -54,55 +54,6 @@ GamePageModel gamePageModel;
 GamePageView gamePageView(&gamePageModel);
 GamePageController gamePageController(&gamePageView, &gamePageModel);
 
-/*
-class FlappyBirdView
-{
-public:
-        void render();
-        void drawObstacle();
-}
-
-class OptionPageModel
-{
-        bool soundOn;
-        bool musicOn;
-
-public:
-  bool getSoundOn();
-  bool getMusicOn();
-}
-
-class FlappyBirdModel
-{
-        Bird bird;
-        Obstacle obstacle1, obstacle2;
-
-public:
-}
-
-class FlappyBirdController
-{
-public:
-        FlappyBirdController(FlappyBirdView*, FlappyBirdModel*);
-}
-
-class Bird
-{
-        float position;
-
-public:
-        void setPosition(float);
-}
-
-class Obstacle
-{
-        float height;
-
-public:
-        Obstacle(float);
-}
-*/
-
 void Init() {
   /*
   Initialise or reinitialise the game, resetting
