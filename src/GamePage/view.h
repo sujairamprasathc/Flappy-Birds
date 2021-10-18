@@ -6,8 +6,8 @@
 #include "../view.h"
 #include "decls.h"
 
-#include "model.h"
 #include "controller.h"
+#include "model.h"
 
 #include "game_engine.h"
 

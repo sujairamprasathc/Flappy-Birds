@@ -47,8 +47,6 @@
 SDL_Window *gWindow = NULL;
 SDL_Surface *gScreenSurface = NULL;
 SDL_Surface *option_Page_Text = NULL;
-SDL_Surface *gStartPage = NULL;
-SDL_Surface *options_Page = NULL;
 
 bool opt_Page;
 
@@ -139,13 +137,11 @@ void Init() {
   }
 
   StartPageModel startPageModel;
-  StartPageView startPageView(gWindow, gScreenSurface, gStartPage,
-                              &startPageModel);
+  StartPageView startPageView(gWindow, gScreenSurface, &startPageModel);
   StartPageController startPageController(&startPageView, &startPageModel);
 
   OptionsPageModel optionsPageModel;
-  OptionsPageView optionsPageView(gWindow, gScreenSurface, options_Page,
-                                  &optionsPageModel);
+  OptionsPageView optionsPageView(gWindow, gScreenSurface, &optionsPageModel);
   OptionsPageController optionsPageController(&optionsPageView,
                                               &optionsPageModel);
 
@@ -177,13 +173,11 @@ void Init() {
       } else {
         if (e.type == SDL_QUIT) {
           // goto QUIT;
-                    stop_Music();
-                    SDL_FreeSurface(gStartPage);  // Deallocate surface
-                    gStartPage = NULL;
-                    SDL_DestroyWindow(gWindow);  // Destroy window
-                    gWindow = NULL;
-                    SDL_Quit();  // Quit SDL subsystems
-                    exit(0);     // EXIT
+          stop_Music();
+          SDL_DestroyWindow(gWindow);  // Destroy window
+          gWindow = NULL;
+          SDL_Quit();  // Quit SDL subsystems
+          exit(0);     // EXIT
         } else if (e.type == SDL_KEYDOWN) {
           switch (e.key.keysym.sym) {
             case SDLK_RETURN:
@@ -191,22 +185,18 @@ void Init() {
                 switch (startPageModel.getCursorPosition()) {
                   case 1:
                     // goto EXIT_SDL;
-                    SDL_FreeSurface(gStartPage);  // Deallocate surface
-                    gStartPage = NULL;
                     SDL_DestroyWindow(gWindow);  // Destroy window
                     gWindow = NULL;
-		    return;
+                    return;
                   case 2:
                     opt_Page = true;
                     view = &optionsPageView;
                     controller = &optionsPageController;
-		    view->render();
+                    view->render();
                     break;
                   case 0:
                     // goto QUIT;
                     stop_Music();
-                    SDL_FreeSurface(gStartPage);  // Deallocate surface
-                    gStartPage = NULL;
                     SDL_DestroyWindow(gWindow);  // Destroy window
                     gWindow = NULL;
                     SDL_Quit();  // Quit SDL subsystems

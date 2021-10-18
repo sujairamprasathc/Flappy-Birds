@@ -5,8 +5,8 @@
 
 #include "decls.h"
 
-#include "model.h"
 #include "controller.h"
+#include "model.h"
 
 class View {
  public:

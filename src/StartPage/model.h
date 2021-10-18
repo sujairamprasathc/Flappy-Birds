@@ -9,7 +9,7 @@
 
 class StartPageModel {
   int cursorPosition;
-  std::vector<StartPageView*> observerList;
+  std::vector<StartPageView *> observerList;
 
  public:
   StartPageModel();

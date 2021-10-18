@@ -1,12 +1,8 @@
 #include "model.h"
 
-StartPageModel::StartPageModel() {
-  this->cursorPosition = 1;
-}
+StartPageModel::StartPageModel() { this->cursorPosition = 1; }
 
-int StartPageModel::getCursorPosition() {
-  return this->cursorPosition;
-}
+int StartPageModel::getCursorPosition() { return this->cursorPosition; }
 
 void StartPageModel::moveCursorDown() {
   this->cursorPosition = (this->cursorPosition + 1) % 3;
@@ -16,8 +12,7 @@ void StartPageModel::moveCursorDown() {
 void StartPageModel::moveCursorUp() {
   if (this->cursorPosition == 0) {
     this->cursorPosition = 2;
-  }
-  else {
+  } else {
     this->cursorPosition = (this->cursorPosition - 1) % 3;
   }
   notify();

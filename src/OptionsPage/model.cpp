@@ -6,9 +6,7 @@ OptionsPageModel::OptionsPageModel() {
   this->_isMusicOn = false;
 }
 
-int OptionsPageModel::getCursorPosition() {
-  return this->cursorPosition;
-}
+int OptionsPageModel::getCursorPosition() { return this->cursorPosition; }
 
 void OptionsPageModel::moveCursorDown() {
   this->cursorPosition = (this->cursorPosition + 1) % 2;
@@ -18,8 +16,7 @@ void OptionsPageModel::moveCursorDown() {
 void OptionsPageModel::moveCursorUp() {
   if (this->cursorPosition == 0) {
     this->cursorPosition = 1;
-  }
-  else {
+  } else {
     this->cursorPosition = (this->cursorPosition - 1) % 2;
   }
   notify();
@@ -36,19 +33,15 @@ void OptionsPageModel::notify() {
 }
 
 void OptionsPageModel::toggleSound() {
-	this->_isSoundOn = !(this->_isSoundOn);
-	notify();
+  this->_isSoundOn = !(this->_isSoundOn);
+  notify();
 }
 
 void OptionsPageModel::toggleMusic() {
-	this->_isMusicOn = !(this->_isMusicOn);
-	notify();
+  this->_isMusicOn = !(this->_isMusicOn);
+  notify();
 }
 
-bool OptionsPageModel::isSoundOn() {
-	return this->_isSoundOn;
-}
+bool OptionsPageModel::isSoundOn() { return this->_isSoundOn; }
 
-bool OptionsPageModel::isMusicOn() {
-	return this->_isMusicOn;
-}
+bool OptionsPageModel::isMusicOn() { return this->_isMusicOn; }

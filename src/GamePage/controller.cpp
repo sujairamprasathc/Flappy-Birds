@@ -1,8 +1,8 @@
 #include "controller.h"
 //#include "../GameView/view.h"
 
-GamePageController::GamePageController(GamePageView *view,
-                                         GamePageModel *model) {
+GamePageController::GamePageController(GamePageView *view, GamePageModel *model)
+    : is_key_pressed(255) {
   this->view = view;
   this->model = model;
 }
@@ -35,5 +35,5 @@ bool GamePageController::handleEvent(unsigned char key, int x, int y) {
 
   for (int i = 0; i < 256; i++)
     if (key == i) is_Key_Pressed[i] = true;
-    return false;
+  return false;
 }

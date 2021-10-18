@@ -5,14 +5,17 @@
 
 #include "../controller.h"
 
-#include "view.h"
 #include "model.h"
+#include "view.h"
 
 #include <SDL2/SDL.h>
+#include <vector>
 
 class GamePageController {
   GamePageView *view;
   GamePageModel *model;
+
+  std::vector<bool> is_key_pressed;
 
  public:
   GamePageController(GamePageView *, GamePageModel *);

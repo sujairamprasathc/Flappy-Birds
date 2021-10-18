@@ -5,8 +5,8 @@
 
 #include "../controller.h"
 
-#include "view.h"
 #include "model.h"
+#include "view.h"
 
 #include <SDL2/SDL.h>
 

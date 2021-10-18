@@ -11,7 +11,7 @@ class OptionsPageModel {
   int cursorPosition;
   bool _isSoundOn;
   bool _isMusicOn;
-  std::vector<OptionsPageView*> observerList;
+  std::vector<OptionsPageView *> observerList;
 
  public:
   OptionsPageModel();

@@ -3,11 +3,11 @@
 
 #include <SDL2/SDL.h>
 
-#include "decls.h"
 #include "../view.h"
+#include "decls.h"
 
-#include "model.h"
 #include "controller.h"
+#include "model.h"
 
 class OptionsPageView : public View {
   OptionsPageModel *model;
@@ -18,7 +18,7 @@ class OptionsPageView : public View {
   SDL_Window *gWindow;
 
  public:
-  OptionsPageView(SDL_Window*, SDL_Surface*, SDL_Surface*, OptionsPageModel *model);
+  OptionsPageView(SDL_Window *, SDL_Surface *, OptionsPageModel *);
   void render();
 };
 

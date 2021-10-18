@@ -6,8 +6,8 @@
 #include "../view.h"
 #include "decls.h"
 
-#include "model.h"
 #include "controller.h"
+#include "model.h"
 
 class StartPageView : public View {
   StartPageModel *model;
@@ -18,7 +18,7 @@ class StartPageView : public View {
   SDL_Window *gWindow;
 
  public:
-  StartPageView(SDL_Window*, SDL_Surface*, SDL_Surface*, StartPageModel *model);
+  StartPageView(SDL_Window *, SDL_Surface *, StartPageModel *model);
   void render();
 };
 

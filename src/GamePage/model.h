@@ -9,7 +9,7 @@
 
 class GamePageModel {
   float position_of_bird;
-  std::vector<GamePageView*> observerList;
+  std::vector<GamePageView *> observerList;
 
  public:
   GamePageModel();
