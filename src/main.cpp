@@ -32,6 +32,14 @@
 #include "CSRP_SDL2_engine.h"
 #include "game_engine.h"
 
+#include "StartPage/controller.h"
+#include "StartPage/model.h"
+#include "StartPage/view.h"
+
+#include "OptionsPage/controller.h"
+#include "OptionsPage/model.h"
+#include "OptionsPage/view.h"
+
 SDL_Window *gWindow = NULL;
 SDL_Surface *gScreenSurface = NULL;
 SDL_Surface *option_Page_Text = NULL;
@@ -41,6 +49,55 @@ SDL_Surface *options_Page = NULL;
 float position_of_bird;
 int option = 2, opt_option = 111;
 bool opt_Page;
+
+/*
+class FlappyBirdView
+{
+public:
+        void render();
+        void drawObstacle();
+}
+
+class OptionPageModel
+{
+        bool soundOn;
+        bool musicOn;
+
+public:
+  bool getSoundOn();
+  bool getMusicOn();
+}
+
+class FlappyBirdModel
+{
+        Bird bird;
+        Obstacle obstacle1, obstacle2;
+
+public:
+}
+
+class FlappyBirdController
+{
+public:
+        FlappyBirdController(FlappyBirdView*, FlappyBirdModel*);
+}
+
+class Bird
+{
+        float position;
+
+public:
+        void setPosition(float);
+}
+
+class Obstacle
+{
+        float height;
+
+public:
+        Obstacle(float);
+}
+*/
 
 void Init() {
   /*
@@ -77,13 +134,26 @@ void Init() {
     gScreenSurface = SDL_GetWindowSurface(gWindow);  // Get window surface
   }
 
+  StartPageModel startPageModel;
+  StartPageView startPageView(gWindow, gScreenSurface, gStartPage,
+                              &startPageModel);
+  StartPageController startPageController(&startPageView, &startPageModel);
+
+  OptionsPageModel optionsPageModel;
+  OptionsPageView optionsPageView(gWindow, gScreenSurface, options_Page,
+                                  &optionsPageModel);
+  OptionsPageController optionsPageController(&optionsPageView,
+                                              &optionsPageModel);
+
+  View *view;
+  Model *model;
+  Controller *controller;
+
 LOAD_START_PAGE:
-  if (option == 2)
-    gStartPage = SDL_LoadBMP("../res/Start_Page_2.bmp");
-  else if (option == 3)
-    gStartPage = SDL_LoadBMP("../res/Start_Page_3.bmp");
-  else if (option == 1)
-    gStartPage = SDL_LoadBMP("../res/Start_Page_1.bmp");
+  view = &startPageView;
+  controller = &startPageController;
+
+  view->render();
 
   if (opt_option == 121 or opt_option == 221 or opt_option == 222 or
       opt_option == 122) {
@@ -92,30 +162,12 @@ LOAD_START_PAGE:
     stop_Music();
   }
 
-  SDL_BlitSurface(gStartPage, NULL, gScreenSurface, NULL);  // Apply the image
-  SDL_UpdateWindowSurface(gWindow);  // Update the surface
   goto INPUT_HANDLER;
 
 OPTIONS:
-  if (opt_option == 111)
-    options_Page = SDL_LoadBMP("../res/Options_M0_S0_MP.bmp");
-  else if (opt_option == 112)
-    options_Page = SDL_LoadBMP("../res/Options_M0_S1_MP.bmp");
-  else if (opt_option == 121)
-    options_Page = SDL_LoadBMP("../res/Options_M1_S0_MP.bmp");
-  else if (opt_option == 122)
-    options_Page = SDL_LoadBMP("../res/Options_M1_S1_MP.bmp");
-  else if (opt_option == 211)
-    options_Page = SDL_LoadBMP("../res/Options_M0_S0_SP.bmp");
-  else if (opt_option == 212)
-    options_Page = SDL_LoadBMP("../res/Options_M0_S1_SP.bmp");
-  else if (opt_option == 221)
-    options_Page = SDL_LoadBMP("../res/Options_M1_S0_SP.bmp");
-  else if (opt_option == 222)
-    options_Page = SDL_LoadBMP("../res/Options_M1_S1_SP.bmp");
-  SDL_BlitSurface(options_Page, NULL, gScreenSurface, NULL);  // Apply the image
-  SDL_UpdateWindowSurface(gWindow);  // Update the surface
-  opt_Page = true;
+  view = &optionsPageView;
+  controller = &optionsPageController;
+  view->render();
   goto INPUT_HANDLER;
 
 INPUT_HANDLER:
@@ -125,85 +177,42 @@ INPUT_HANDLER:
   while (true) {
     // Handle events on queue
     while (SDL_PollEvent(&e) != 0) {
-      if (e.type == SDL_QUIT)  // User requests quit
-        goto QUIT;
-      else if (e.type == SDL_KEYDOWN)  // User presses a key
-      {
-        switch (e.key.keysym.sym) {
-          case SDLK_DOWN:
-            if (!opt_Page and option > 0 and option < 3)
-              option++;
-            else if (opt_Page and opt_option > 100 and opt_option < 150)
-              opt_option += 100;
-            break;
-
-          case SDLK_UP:
-            if (!opt_Page and option > 1 and option < 4)
-              option--;
-            else if (opt_Page and opt_option > 200 and opt_option < 250)
-              opt_option -= 100;
-            break;
-
-          case SDLK_RETURN:
-            if (!opt_Page) {
-              switch (option) {
-                case 1:
-                  goto EXIT_SDL;
-                case 2:
-                  goto OPTIONS;
-                  break;
-
-                case 3:
-                  goto QUIT;
-                default:
-                  break;
+      if (controller->handleEvent(e)) {
+        continue;
+      } else {
+        if (e.type == SDL_QUIT) {
+          goto QUIT;
+        } else if (e.type == SDL_KEYDOWN) {
+          switch (e.key.keysym.sym) {
+            case SDLK_RETURN:
+              if (!opt_Page) {
+                switch (startPageModel.getCursorPosition()) {
+                  case 1:
+                    goto EXIT_SDL;
+                    break;
+                  case 2:
+                    opt_Page = true;
+                    break;
+                  case 0:
+                    goto QUIT;
+                    break;
+                }
               }
               break;
-            } else {
-              switch (opt_option) {
-                case 111:
-                  opt_option = 121;
-                  break;
-                case 112:
-                  opt_option = 122;
-                  break;
-                case 121:
-                  opt_option = 111;
-                  break;
-                case 122:
-                  opt_option = 112;
-                  break;
-                case 211:
-                  opt_option = 212;
-                  break;
-                case 212:
-                  opt_option = 211;
-                  break;
-                case 221:
-                  opt_option = 222;
-                  break;
-                case 222:
-                  opt_option = 221;
-                  break;
-                default:
-                  break;
+            case SDLK_ESCAPE:
+              if (opt_Page) {
+                opt_Page = false;
               }
-            }
-            break;
-
-          case SDLK_ESCAPE:
-            if (opt_Page) opt_Page = false;
-            break;
-
-          default:
-            break;
+              break;
+          }
         }
       }
-      if (opt_Page)
-        goto OPTIONS;
-      else
-        goto LOAD_START_PAGE;
     }
+
+    if (opt_Page)
+      goto OPTIONS;
+    else
+      goto LOAD_START_PAGE;
   }
 
 QUIT:
@@ -407,7 +416,7 @@ int main(int argc, char *argv[]) {
       keyReleased);          // Register a callback func. to handle key-releases
   glutIdleFunc(idle_State);  // Register a callback func. to handle idle
                              // situations(Nothing has happened during loop)
-  glutMainLoop();  // Start main loop
+  glutMainLoop();            // Start main loop
 
   return 0;
 }
