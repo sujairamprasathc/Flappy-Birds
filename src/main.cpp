@@ -40,15 +40,21 @@
 #include "OptionsPage/model.h"
 #include "OptionsPage/view.h"
 
+#include "GamePage/controller.h"
+#include "GamePage/model.h"
+#include "GamePage/view.h"
+
 SDL_Window *gWindow = NULL;
 SDL_Surface *gScreenSurface = NULL;
 SDL_Surface *option_Page_Text = NULL;
 SDL_Surface *gStartPage = NULL;
 SDL_Surface *options_Page = NULL;
 
-float position_of_bird;
-int option = 2, opt_option = 111;
 bool opt_Page;
+
+GamePageModel gamePageModel;
+GamePageView gamePageView(&gamePageModel);
+GamePageController gamePageController(&gamePageView, &gamePageModel);
 
 /*
 class FlappyBirdView
@@ -104,8 +110,6 @@ void Init() {
   Initialise or reinitialise the game, resetting
   the variables and swapping to start page
   */
-  position_of_bird = 0;
-
   obstacle_1_vertex[0][0] = 1.2;
   obstacle_1_vertex[0][1] = 1.0;
   obstacle_1_vertex[1][0] = 1.0;
@@ -149,28 +153,19 @@ void Init() {
   Model *model;
   Controller *controller;
 
-LOAD_START_PAGE:
+  // LOAD_START_PAGE:
   view = &startPageView;
   controller = &startPageController;
 
   view->render();
 
-  if (opt_option == 121 or opt_option == 221 or opt_option == 222 or
-      opt_option == 122) {
+  if (optionsPageModel.isMusicOn()) {
     if (Mix_PlayingMusic() != 1) play_Music("../res/01.mp3");
   } else {
     stop_Music();
   }
 
-  goto INPUT_HANDLER;
-
-OPTIONS:
-  view = &optionsPageView;
-  controller = &optionsPageController;
-  view->render();
-  goto INPUT_HANDLER;
-
-INPUT_HANDLER:
+  // INPUT_HANDLER:
   SDL_Event e;  // Event handler
 
   // While application is running
@@ -181,20 +176,41 @@ INPUT_HANDLER:
         continue;
       } else {
         if (e.type == SDL_QUIT) {
-          goto QUIT;
+          // goto QUIT;
+                    stop_Music();
+                    SDL_FreeSurface(gStartPage);  // Deallocate surface
+                    gStartPage = NULL;
+                    SDL_DestroyWindow(gWindow);  // Destroy window
+                    gWindow = NULL;
+                    SDL_Quit();  // Quit SDL subsystems
+                    exit(0);     // EXIT
         } else if (e.type == SDL_KEYDOWN) {
           switch (e.key.keysym.sym) {
             case SDLK_RETURN:
               if (!opt_Page) {
                 switch (startPageModel.getCursorPosition()) {
                   case 1:
-                    goto EXIT_SDL;
-                    break;
+                    // goto EXIT_SDL;
+                    SDL_FreeSurface(gStartPage);  // Deallocate surface
+                    gStartPage = NULL;
+                    SDL_DestroyWindow(gWindow);  // Destroy window
+                    gWindow = NULL;
+		    return;
                   case 2:
                     opt_Page = true;
+                    view = &optionsPageView;
+                    controller = &optionsPageController;
+		    view->render();
                     break;
                   case 0:
-                    goto QUIT;
+                    // goto QUIT;
+                    stop_Music();
+                    SDL_FreeSurface(gStartPage);  // Deallocate surface
+                    gStartPage = NULL;
+                    SDL_DestroyWindow(gWindow);  // Destroy window
+                    gWindow = NULL;
+                    SDL_Quit();  // Quit SDL subsystems
+                    exit(0);     // EXIT
                     break;
                 }
               }
@@ -202,77 +218,20 @@ INPUT_HANDLER:
             case SDLK_ESCAPE:
               if (opt_Page) {
                 opt_Page = false;
+                view = &startPageView;
+                controller = &startPageController;
+
+                view->render();
               }
               break;
           }
         }
       }
     }
-
-    if (opt_Page)
-      goto OPTIONS;
-    else
-      goto LOAD_START_PAGE;
   }
-
-QUIT:
-  stop_Music();
-  SDL_FreeSurface(gStartPage);  // Deallocate surface
-  gStartPage = NULL;
-  SDL_DestroyWindow(gWindow);  // Destroy window
-  gWindow = NULL;
-  SDL_Quit();  // Quit SDL subsystems
-  exit(0);     // EXIT
-
-EXIT_SDL:
-  SDL_FreeSurface(gStartPage);  // Deallocate surface
-  gStartPage = NULL;
-  SDL_DestroyWindow(gWindow);  // Destroy window
-  gWindow = NULL;
 }
 
-void Obstacle() {
-  /*
-  Function to draw an obstacle
-  */
-  if (obstacle_1_vertex[0][0] < -1.0) Brain.create_Obstacle(1);
-
-  if (obstacle_2_vertex[0][0] < -1.0) Brain.create_Obstacle(2);
-
-  float x[4], y[4];
-
-  for (int i = 0; i < 4; i++) {
-    x[i] = obstacle_1_vertex[i][0];
-    y[i] = obstacle_1_vertex[i][1];
-  }
-
-  Artist.draw_Obstacle(x, y);
-
-  for (int i = 0; i < 4; i++) {
-    x[i] = obstacle_2_vertex[i][0];
-    y[i] = obstacle_2_vertex[i][1];
-  }
-
-  Artist.draw_Obstacle(x, y);
-}
-
-void display() {
-  /*
-  Call those functions that have to draw their
-  specifics, based on game states
-  */
-  glClearColor(0.0, 0.0, 0.0, 1.0);
-  glClear(GL_COLOR_BUFFER_BIT);
-
-  Artist.draw_Backgrounds();
-  Artist.draw_Bird(0, position_of_bird);
-  Obstacle();
-  Artist.display_Score(TOP_RIGHT, Brain.get_Score());
-
-  if (is_Game_Paused) pause_Game();
-
-  glutSwapBuffers();
-}
+void display() { gamePageView.render(); }
 
 void idle_State() {
   /*
@@ -280,14 +239,19 @@ void idle_State() {
   there is very little user interaction compared
   with the rapidness of loops
   */
-  if (!Brain.check_if_lost(0, position_of_bird)) {
+  if (is_Game_Paused) {
+    return;
+  }
+
+  if (!Brain.check_if_lost(0, gamePageModel.getPositionOfBird())) {
     Brain.calc_Velocity();
 
     glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     if (is_Key_Pressed['w']) {
-      position_of_bird += Brain.get_Velocity();
+      gamePageModel.setPositionOfBird(gamePageModel.getPositionOfBird() +
+                                      Brain.get_Velocity());
 
       for (int i = 0; i < 4; i++) {
         obstacle_1_vertex[i][0] -= Brain.get_Velocity();
@@ -296,7 +260,8 @@ void idle_State() {
     }
 
     else {
-      position_of_bird -= Brain.get_Velocity();
+      gamePageModel.setPositionOfBird(gamePageModel.getPositionOfBird() -
+                                      Brain.get_Velocity());
 
       for (int i = 0; i < 4; i++) {
         obstacle_1_vertex[i][0] -= Brain.get_Velocity();
@@ -309,7 +274,7 @@ void idle_State() {
     glutPostRedisplay();
   }
 
-  if (Brain.check_if_lost(0, position_of_bird)) {
+  if (Brain.check_if_lost(0, gamePageModel.getPositionOfBird())) {
     ifstream score_File("../res/scores.data", ios::in);
     float high_Scores[12];
     for (int i = 0; i < 10; i++) score_File >> high_Scores[i];
@@ -355,29 +320,7 @@ void keyPressed(unsigned char key, int x, int y) {
   Nothing much to do, just change states, except for few
   key strokes, which require action
   */
-  switch (key) {
-    case ESC: {
-      if (is_Game_Paused)
-        resume(idle_State);
-      else
-        pause_Game();
-
-      break;
-    }
-    case SPACE: {
-      if (is_Game_Paused)
-        resume(idle_State);
-      else
-        pause_Game();
-
-      break;
-    }
-    default:
-      break;
-  }
-
-  for (int i = 0; i < 256; i++)
-    if (key == i) is_Key_Pressed[i] = true;
+  gamePageController.handleEvent(key, x, y);
 }
 
 void keyReleased(unsigned char key, int x, int y) {
