@@ -1,8 +1,6 @@
 #ifndef GUI_ROOT_VIEW_H
 #define GUI_ROOT_VIEW_H 1
 
-#include "../StartPage/view.h"
-
 #include "StartPage/controller.h"
 #include "StartPage/model.h"
 #include "StartPage/view.h"
@@ -14,6 +12,8 @@
 #include "GamePage/controller.h"
 #include "GamePage/model.h"
 #include "GamePage/view.h"
+
+#include <pthread.h>
 
 class GuiRoot {
   unsigned viewId;
@@ -34,10 +34,24 @@ class GuiRoot {
   Model *model;
   Controller *controller;
 
- public:
+  pthread_t glutMailLoopThread;
+
+  static GuiRoot *instance;
+
+  void initOpenGl();
+
   GuiRoot();
+
+ public:
+  ~GuiRoot();
+
+  static GuiRoot* getInstance();
+
   void render();
   void handleEvents();
+
+  unsigned getViewId();
+  void setViewId(unsigned);
 };
 
 #endif  // GUI_ROOT_VIEW_H
