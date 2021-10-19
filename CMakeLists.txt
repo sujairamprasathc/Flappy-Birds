@@ -19,10 +19,13 @@ add_library(SDL2_Engine src/CSRP_SDL2_engine.cpp)
 add_subdirectory(src/StartPage/)
 add_subdirectory(src/OptionsPage/)
 add_subdirectory(src/GamePage/)
+add_subdirectory(src/GuiRoot/)
 
 # Executable
 add_executable(Flappy-Birds src/main.cpp src/game_engine.cpp)
+target_include_directories(Flappy-Birds PUBLIC src)
 target_link_libraries(Flappy-Birds SDL2_Windows SDL2_Widgets SDL2_Texture SDL2_Engine
   StartPageView StartPageController StartPageModel
   GamePageView GamePageController GamePageModel
-  OptionsPageView OptionsPageController OptionsPageModel)
+  OptionsPageView OptionsPageController OptionsPageModel
+  GuiRoot)

@@ -32,23 +32,7 @@
 #include "CSRP_SDL2_engine.h"
 #include "game_engine.h"
 
-#include "StartPage/controller.h"
-#include "StartPage/model.h"
-#include "StartPage/view.h"
-
-#include "OptionsPage/controller.h"
-#include "OptionsPage/model.h"
-#include "OptionsPage/view.h"
-
-#include "GamePage/controller.h"
-#include "GamePage/model.h"
-#include "GamePage/view.h"
-
-SDL_Window *gWindow = NULL;
-SDL_Surface *gScreenSurface = NULL;
-SDL_Surface *option_Page_Text = NULL;
-
-bool opt_Page;
+#include "GuiRoot/GuiRoot.h"
 
 GamePageModel gamePageModel;
 GamePageView gamePageView(&gamePageModel);
@@ -81,95 +65,15 @@ void Init() {
 
   if (!CSRP_SDL2::SDL2_Engine_init()) abort();
 
-  gWindow =
-      SDL_CreateWindow("FLAPPY BIRDS", 150, 50, 640, 480, SDL_WINDOW_SHOWN);
-  if (gWindow != NULL) {
-    gScreenSurface = SDL_GetWindowSurface(gWindow);  // Get window surface
-  }
-
-  StartPageModel startPageModel;
-  StartPageView startPageView(gWindow, gScreenSurface, &startPageModel);
-  StartPageController startPageController(&startPageView, &startPageModel);
-
-  OptionsPageModel optionsPageModel;
-  OptionsPageView optionsPageView(gWindow, gScreenSurface, &optionsPageModel);
-  OptionsPageController optionsPageController(&optionsPageView,
-                                              &optionsPageModel);
-
-  View *view;
-  Model *model;
-  Controller *controller;
-
-  // LOAD_START_PAGE:
-  view = &startPageView;
-  controller = &startPageController;
-
-  view->render();
-
-  if (optionsPageModel.isMusicOn()) {
+  /*if (optionsPageModel.isMusicOn()) {
     if (Mix_PlayingMusic() != 1) play_Music("../res/01.mp3");
   } else {
     stop_Music();
-  }
+  }*/
 
-  // INPUT_HANDLER:
-  SDL_Event e;  // Event handler
-
-  // While application is running
-  while (true) {
-    // Handle events on queue
-    while (SDL_PollEvent(&e) != 0) {
-      if (controller->handleEvent(e)) {
-        continue;
-      } else {
-        if (e.type == SDL_QUIT) {
-          // goto QUIT;
-          stop_Music();
-          SDL_DestroyWindow(gWindow);  // Destroy window
-          gWindow = NULL;
-          SDL_Quit();  // Quit SDL subsystems
-          exit(0);     // EXIT
-        } else if (e.type == SDL_KEYDOWN) {
-          switch (e.key.keysym.sym) {
-            case SDLK_RETURN:
-              if (!opt_Page) {
-                switch (startPageModel.getCursorPosition()) {
-                  case 1:
-                    // goto EXIT_SDL;
-                    SDL_DestroyWindow(gWindow);  // Destroy window
-                    gWindow = NULL;
-                    return;
-                  case 2:
-                    opt_Page = true;
-                    view = &optionsPageView;
-                    controller = &optionsPageController;
-                    view->render();
-                    break;
-                  case 0:
-                    // goto QUIT;
-                    stop_Music();
-                    SDL_DestroyWindow(gWindow);  // Destroy window
-                    gWindow = NULL;
-                    SDL_Quit();  // Quit SDL subsystems
-                    exit(0);     // EXIT
-                    break;
-                }
-              }
-              break;
-            case SDLK_ESCAPE:
-              if (opt_Page) {
-                opt_Page = false;
-                view = &startPageView;
-                controller = &startPageController;
-
-                view->render();
-              }
-              break;
-          }
-        }
-      }
-    }
-  }
+  GuiRoot guiRoot;
+  guiRoot.render();
+  guiRoot.handleEvents();
 }
 
 void display() { gamePageView.render(); }
