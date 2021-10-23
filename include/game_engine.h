@@ -52,44 +52,6 @@ void pause_Game();
 
 void resume();
 
-class game_Artist
-{
-private:
-float vB1[4][2], vB2[4][2], vB3[4][2], vB4[4][2];
-
-void draw_Building_1();
-
-
-void draw_Building_2();
-
-
-void draw_Building_3();
-
-
-void draw_Building_4();
-
-
-void draw_Stars();
-
-
-void draw_Moon();
-
-
-public:
-game_Artist();
-
-void display_Score(int pos, int sco);
-
-void draw_Bird(float x, float y);
-
-void draw_Obstacle(float x[4], float y[4]);
-
-void draw_Backgrounds();
-
-};
-
-extern game_Artist Artist;
-
 class AI
 {
 private:

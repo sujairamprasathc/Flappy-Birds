@@ -1,0 +1,6 @@
+add_library(Building Building.cpp)
+add_library(Obstacle Obstacle.cpp)
+add_library(Bird Bird.cpp)
+add_library(Moon Moon.cpp)
+add_library(Stars Stars.cpp)
+add_library(ScoreBoard ScoreBoard.cpp)

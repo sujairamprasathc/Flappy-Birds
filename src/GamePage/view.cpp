@@ -1,11 +1,18 @@
 #include "view.h"
 
-GamePageView::GamePageView(GamePageModel *model) {
+GamePageView::GamePageView(GamePageModel *model)
+    : buildings(4, Building(-0.6, -0.85, -0.4)),
+      bird(0.0f),
+      scoreBoard(TOP_RIGHT) {
   this->model = model;
   this->model->subscribe(this);
+
+  buildings[1] = Building(-0.3, -0.2, 0.25);
+  buildings[2] = Building(-0.45, 0.4, 0.85);
+  buildings[3] = Building(-0.35, 1.05, 1.45);
 }
 
-void GamePageView::Obstacle() {
+void GamePageView::drawObstacle() {
   /*
   Function to draw an obstacle
   */
@@ -13,21 +20,13 @@ void GamePageView::Obstacle() {
 
   if (obstacle_2_vertex[0][0] < -1.0) Brain.create_Obstacle(2);
 
-  float x[4], y[4];
+  obstacle1.setTopLeft(obstacle_1_vertex[0][0], obstacle_1_vertex[0][1]);
+  obstacle1.setBottomRight(obstacle_1_vertex[2][0], obstacle_1_vertex[2][1]);
+  obstacle1.draw();
 
-  for (int i = 0; i < 4; i++) {
-    x[i] = obstacle_1_vertex[i][0];
-    y[i] = obstacle_1_vertex[i][1];
-  }
-
-  Artist.draw_Obstacle(x, y);
-
-  for (int i = 0; i < 4; i++) {
-    x[i] = obstacle_2_vertex[i][0];
-    y[i] = obstacle_2_vertex[i][1];
-  }
-
-  Artist.draw_Obstacle(x, y);
+  obstacle2.setTopLeft(obstacle_2_vertex[0][0], obstacle_2_vertex[0][1]);
+  obstacle2.setBottomRight(obstacle_2_vertex[2][0], obstacle_2_vertex[2][1]);
+  obstacle2.draw();
 }
 
 void GamePageView::render() {
@@ -38,10 +37,20 @@ void GamePageView::render() {
   glClearColor(0.0, 0.0, 0.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT);
 
-  Artist.draw_Backgrounds();
-  Artist.draw_Bird(0, this->model->getPositionOfBird());
-  Obstacle();
-  Artist.display_Score(TOP_RIGHT, Brain.get_Score());
+  for (unsigned i = 0; i < 4; ++i) {
+    buildings[i].draw();
+    buildings[i].moveLeft();
+  }
+  moon.draw();
+  stars.draw();
+
+  bird.setVerticalPosition(this->model->getPositionOfBird());
+  bird.draw();
+
+  drawObstacle();
+
+  scoreBoard.setScore(Brain.get_Score());
+  scoreBoard.draw();
 
   if (is_Game_Paused) pause_Game();
 
