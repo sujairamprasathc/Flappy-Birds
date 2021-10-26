@@ -1,19 +1,32 @@
 #ifndef OBSTACLE_H
 #define OBSTACLE_H 1
 
+#include <vector>
+#include <utility>
+
 class Obstacle {
   float left_x;
   float top_y;
   float right_x;
   float bottom_y;
 
+  unsigned type;
+
+  void init();
+  void reset();
+
  public:
-  Obstacle();
+  Obstacle(unsigned);
 
   void draw();
 
-  void setTopLeft(float, float);
-  void setBottomRight(float, float);
+  float getHeight();
+  void setHeight(float);
+
+  bool isPointInside(std::pair<float, float>);
+  std::vector<std::pair<float, float>> getBoundingBox();
+
+  void moveLeftBy(float);
 };
 
 #endif // OBSTACLE_H

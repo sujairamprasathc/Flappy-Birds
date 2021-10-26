@@ -6,8 +6,6 @@
 #include <cmath>
 #include <fstream>
 
-#define TOP_RIGHT 0
-
 void itoa(int a, char *b[], int c) {
   /*
       No returning... Directly modify the array pointed to...
@@ -64,5 +62,7 @@ void ScoreBoard::draw() {
   for (int i = 0; i < 3; i++)
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, hSco[i]);
 }
+
+unsigned ScoreBoard::getScore() { return this->score; }
 
 void ScoreBoard::setScore(unsigned score) { this->score = score; }

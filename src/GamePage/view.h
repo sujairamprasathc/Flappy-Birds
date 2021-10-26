@@ -9,27 +9,9 @@
 #include "controller.h"
 #include "model.h"
 
-#include "game_engine.h"
-
-#include "../GameEngine/Building.h"
-#include "../GameEngine/Bird.h"
-#include "../GameEngine/Obstacle.h"
-#include "../GameEngine/Moon.h"
-#include "../GameEngine/Stars.h"
-#include "../GameEngine/ScoreBoard.h"
-
-#include <vector>
-
 class GamePageView : public View {
   GamePageModel *model;
   GamePageController *controller;
-
-  std::vector<Building> buildings;
-  Bird bird;
-  Obstacle obstacle1, obstacle2;
-  Moon moon;
-  Stars stars;
-  ScoreBoard scoreBoard;
 
   void drawObstacle();
 

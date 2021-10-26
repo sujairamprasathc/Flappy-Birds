@@ -23,7 +23,7 @@ add_subdirectory(src/GuiRoot/)
 add_subdirectory(src/GameEngine/)
 
 # Executable
-add_executable(Flappy-Birds src/main.cpp src/game_engine.cpp)
+add_executable(Flappy-Birds src/main.cpp src/AudioEngine.cpp)
 target_include_directories(Flappy-Birds PUBLIC src)
 target_link_libraries(Flappy-Birds SDL2_Windows SDL2_Widgets SDL2_Texture SDL2_Engine
   StartPageView StartPageController StartPageModel

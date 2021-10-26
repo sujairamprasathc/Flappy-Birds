@@ -1,7 +1,9 @@
 #include "GuiRoot.h"
 
+#include "AudioEngine.h"
 #include "CSRP_SDL2_engine.h"
-#include "game_engine.h"
+
+#include <GL/freeglut.h>
 
 GamePageModel gamePageModel;
 GamePageView gamePageView(&gamePageModel);
@@ -12,26 +14,6 @@ void Init() {
   Initialise or reinitialise the game, resetting
   the variables and swapping to start page
   */
-  obstacle_1_vertex[0][0] = 1.2;
-  obstacle_1_vertex[0][1] = 1.0;
-  obstacle_1_vertex[1][0] = 1.0;
-  obstacle_1_vertex[1][1] = 1.0;
-  obstacle_1_vertex[2][0] = 1.0;
-  obstacle_1_vertex[2][1] = 0.0;
-  obstacle_1_vertex[3][0] = 1.2;
-  obstacle_1_vertex[3][1] = 0.0;
-
-  obstacle_2_vertex[0][0] = 2.3;
-  obstacle_2_vertex[0][1] = -1.0;
-  obstacle_2_vertex[1][0] = 2.1;
-  obstacle_2_vertex[1][1] = -1.0;
-  obstacle_2_vertex[2][0] = 2.1;
-  obstacle_2_vertex[2][1] = 0.0;
-  obstacle_2_vertex[3][0] = 2.3;
-  obstacle_2_vertex[3][1] = 0.0;
-
-  Brain.reset();
-
   if (!CSRP_SDL2::SDL2_Engine_init()) abort();
 
   /*if (optionsPageModel.isMusicOn()) {
@@ -56,76 +38,7 @@ static void resize(int width, int height) {
   glLoadIdentity();
 }
 
-void idle_State() {
-  /*
-  Entire game's AI and graphics is handled here as
-  there is very little user interaction compared
-  with the rapidness of loops
-  */
-  if (is_Game_Paused) {
-    return;
-  }
-
-  if (!Brain.check_if_lost(0, gamePageModel.getPositionOfBird())) {
-    Brain.calc_Velocity();
-
-    glClearColor(0.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    if (is_Key_Pressed['w']) {
-      gamePageModel.setPositionOfBird(gamePageModel.getPositionOfBird() +
-                                      Brain.get_Velocity());
-
-      for (int i = 0; i < 4; i++) {
-        obstacle_1_vertex[i][0] -= Brain.get_Velocity();
-        obstacle_2_vertex[i][0] -= Brain.get_Velocity();
-      }
-    }
-
-    else {
-      gamePageModel.setPositionOfBird(gamePageModel.getPositionOfBird() -
-                                      Brain.get_Velocity());
-
-      for (int i = 0; i < 4; i++) {
-        obstacle_1_vertex[i][0] -= Brain.get_Velocity();
-        obstacle_2_vertex[i][0] -= Brain.get_Velocity();
-      }
-    }
-
-    Brain.calc_Score();
-
-    glutPostRedisplay();
-  }
-
-  if (Brain.check_if_lost(0, gamePageModel.getPositionOfBird())) {
-    ifstream score_File("../res/scores.data", ios::in);
-    float high_Scores[12];
-    for (int i = 0; i < 10; i++) score_File >> high_Scores[i];
-    for (int i = 0; i < 10; i++) {
-      if (Brain.get_Score() > high_Scores[i]) {
-        float temp[12];
-        for (int j = i; j < 10; j++) temp[j] = high_Scores[j];
-        for (int j = i; j < 10; j++) high_Scores[j + 1] = temp[j];
-        high_Scores[i] = Brain.get_Score();
-        break;
-      }
-    }
-    score_File.close();
-    ofstream score_File_Out("../res/scores.data", ios::out);
-    for (int i = 0; i < 10; i++) score_File_Out << high_Scores[i] << endl;
-    score_File.close();
-
-    game_End e;
-    e.declare_Over(Brain.get_Score());
-    glutHideWindow();
-    Init();
-    is_Game_Paused = true;
-    GuiRoot::getInstance()->setViewId(0);
-    while (is_Game_Paused)
-      ;
-    glutShowWindow();
-  }
-}
+void idle_State() { gamePageController.idleStateHandler(); }
 
 void display() { gamePageView.render(); }
 
@@ -145,9 +58,7 @@ GuiRoot::GuiRoot() {
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
     ;
 
-  is_Game_Paused = true;
-
-  this->initOpenGl();
+  gamePageModel.pauseGame();
 
   Init();
 
@@ -207,11 +118,13 @@ void GuiRoot::handleEvents() {
                   case 1:
                     // goto EXIT_SDL;
                     SDL_HideWindow(gWindow);
-                    is_Game_Paused = false;
-                    glutShowWindow();
-                    this->viewId = 2;
-                    while (this->viewId == 2)
+                    this->initOpenGl();
+                    gamePageModel.resumeGame();
+                    // Wait until game ends
+                    while (!gamePageModel.isGameOver())
                       ;
+                    sleep(1);
+                    gamePageModel = GamePageModel();
                     SDL_ShowWindow(gWindow);
                     view->render();
                     break;
@@ -259,6 +172,13 @@ void* startGlutMainLoop(void*) {
 void GuiRoot::initOpenGl() {
   // Transition to complete OPENGL to handle game play and related graphics
 
+  static bool alreadyInitialized = false;
+
+  if (alreadyInitialized) {
+    glutShowWindow();
+    return;
+  }
+
   // Dummy arguments passed to OpenGL
   int argc = 1;
   char* argv[1] = {(char*)"app"};
@@ -286,10 +206,5 @@ void GuiRoot::initOpenGl() {
   int threadId = pthread_create(&this->glutMailLoopThread, nullptr,
                                 startGlutMainLoop, nullptr);
 
-  // Do not show the window until SDL gives green light
-  glutHideWindow();
+  alreadyInitialized = true;
 }
-
-void GuiRoot::setViewId(unsigned viewId) { this->viewId = viewId; }
-
-unsigned GuiRoot::getViewId() { return this->viewId; }

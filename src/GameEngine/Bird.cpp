@@ -35,3 +35,12 @@ void Bird::draw() {
 void Bird::setVerticalPosition(float verticalPosition) {
   this->verticalPosition = verticalPosition;
 }
+
+std::vector<std::pair<float, float>> Bird::getBoundingBox() {
+  std::vector<std::pair<float, float>> points;
+  points.push_back(std::make_pair(-0.1, this->verticalPosition + 0.1));
+  points.push_back(std::make_pair(0.1, this->verticalPosition + 0.1));
+  points.push_back(std::make_pair(0.1, this->verticalPosition - 0.1));
+  points.push_back(std::make_pair(-0.1, this->verticalPosition - 0.1));
+  return points;
+}

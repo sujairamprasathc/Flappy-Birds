@@ -1,6 +1,8 @@
 #ifndef SCORE_BOARD_H
 #define SCORE_BOARD_H 1
 
+#define TOP_RIGHT 1
+
 class ScoreBoard {
   unsigned score;
   unsigned position;
@@ -10,6 +12,7 @@ class ScoreBoard {
 
   void draw();
 
+  unsigned getScore();
   void setScore(unsigned);
 };
 
