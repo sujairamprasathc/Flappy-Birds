@@ -1,3 +1,5 @@
+include_directories(../../include/OptionsPage/)
+
 add_library(OptionsPageController ./controller.cpp)
 target_link_libraries(OptionsPageController OptionsPageModel OptionsPageView)
 

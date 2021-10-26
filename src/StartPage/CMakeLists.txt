@@ -1,3 +1,5 @@
+include_directories(../../include/StartPage/)
+
 add_library(StartPageController ./controller.cpp)
 target_link_libraries(StartPageController StartPageModel StartPageView)
 

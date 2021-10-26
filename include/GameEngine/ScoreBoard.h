@@ -16,4 +16,4 @@ class ScoreBoard {
   void setScore(unsigned);
 };
 
-#endif // SCORE_BOARD_H
+#endif  // SCORE_BOARD_H

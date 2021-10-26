@@ -18,4 +18,4 @@ class Building {
   void moveLeft();
 };
 
-#endif // BUILDING_H
+#endif  // BUILDING_H

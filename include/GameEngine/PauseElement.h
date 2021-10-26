@@ -6,4 +6,4 @@ class PauseElement {
   void draw();
 };
 
-#endif // PAUSE_ELEMENT_H
+#endif  // PAUSE_ELEMENT_H

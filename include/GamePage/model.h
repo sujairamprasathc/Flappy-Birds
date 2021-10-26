@@ -5,18 +5,18 @@
 
 #include "view.h"
 
-#include "../GameEngine/Building.h"
 #include "../GameEngine/Bird.h"
-#include "../GameEngine/Obstacle.h"
+#include "../GameEngine/Building.h"
 #include "../GameEngine/Moon.h"
-#include "../GameEngine/Stars.h"
-#include "../GameEngine/ScoreBoard.h"
+#include "../GameEngine/Obstacle.h"
 #include "../GameEngine/PauseElement.h"
+#include "../GameEngine/ScoreBoard.h"
+#include "../GameEngine/Stars.h"
 
 #include <vector>
 
 class GamePageModel {
-  std::vector<GamePageView *> observerList;
+  std::vector<GamePageView*> observerList;
 
   float position_of_bird;
   float velocity_of_bird;
@@ -36,7 +36,7 @@ class GamePageModel {
  public:
   GamePageModel();
 
-  void subscribe(GamePageView *);
+  void subscribe(GamePageView*);
   void notify();
 
   bool isGamePaused();

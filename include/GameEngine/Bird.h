@@ -1,8 +1,8 @@
 #ifndef BIRD_H
 #define BIRD_H 1
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 class Bird {
   float verticalPosition;
@@ -17,4 +17,4 @@ class Bird {
   std::vector<std::pair<float, float>> getBoundingBox();
 };
 
-#endif // BIRD_H
+#endif  // BIRD_H

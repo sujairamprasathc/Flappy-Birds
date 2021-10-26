@@ -1,8 +1,8 @@
 #ifndef OBSTACLE_H
 #define OBSTACLE_H 1
 
-#include <vector>
 #include <utility>
+#include <vector>
 
 class Obstacle {
   float left_x;
@@ -29,4 +29,4 @@ class Obstacle {
   void moveLeftBy(float);
 };
 
-#endif // OBSTACLE_H
+#endif  // OBSTACLE_H

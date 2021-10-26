@@ -1,4 +1,4 @@
-include_directories(../)
+include_directories(../../include/GuiRoot/)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)

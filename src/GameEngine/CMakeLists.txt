@@ -1,3 +1,5 @@
+include_directories(../../include/GameEngine/)
+
 add_library(Building Building.cpp)
 add_library(Obstacle Obstacle.cpp)
 add_library(Bird Bird.cpp)

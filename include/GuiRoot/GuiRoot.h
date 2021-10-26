@@ -45,7 +45,7 @@ class GuiRoot {
  public:
   ~GuiRoot();
 
-  static GuiRoot* getInstance();
+  static GuiRoot *getInstance();
 
   void render();
   void handleEvents();

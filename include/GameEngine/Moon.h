@@ -6,4 +6,4 @@ class Moon {
   void draw();
 };
 
-#endif // MOON_H
+#endif  // MOON_H
