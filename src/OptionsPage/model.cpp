@@ -6,7 +6,7 @@ OptionsPageModel::OptionsPageModel() {
   this->_isMusicOn = false;
 }
 
-int OptionsPageModel::getCursorPosition() { return this->cursorPosition; }
+int OptionsPageModel::getCursorPosition() const { return this->cursorPosition; }
 
 void OptionsPageModel::moveCursorDown() {
   this->cursorPosition = (this->cursorPosition + 1) % 2;
@@ -26,7 +26,7 @@ void OptionsPageModel::subscribe(OptionsPageView *view) {
   this->observerList.push_back(view);
 }
 
-void OptionsPageModel::notify() {
+void OptionsPageModel::notify() const {
   for (auto &view : this->observerList) {
     view->render();
   }
@@ -42,6 +42,6 @@ void OptionsPageModel::toggleMusic() {
   notify();
 }
 
-bool OptionsPageModel::isSoundOn() { return this->_isSoundOn; }
+bool OptionsPageModel::isSoundOn() const { return this->_isSoundOn; }
 
-bool OptionsPageModel::isMusicOn() { return this->_isMusicOn; }
+bool OptionsPageModel::isMusicOn() const { return this->_isMusicOn; }

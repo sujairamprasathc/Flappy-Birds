@@ -2,7 +2,7 @@
 
 StartPageModel::StartPageModel() { this->cursorPosition = 1; }
 
-int StartPageModel::getCursorPosition() { return this->cursorPosition; }
+int StartPageModel::getCursorPosition() const { return this->cursorPosition; }
 
 void StartPageModel::moveCursorDown() {
   this->cursorPosition = (this->cursorPosition + 1) % 3;
@@ -22,7 +22,7 @@ void StartPageModel::subscribe(StartPageView *view) {
   this->observerList.push_back(view);
 }
 
-void StartPageModel::notify() {
+void StartPageModel::notify() const {
   for (auto &view : this->observerList) {
     view->render();
   }

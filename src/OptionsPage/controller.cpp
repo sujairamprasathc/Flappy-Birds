@@ -1,5 +1,4 @@
 #include "controller.h"
-//#include "../GameView/view.h"
 
 OptionsPageController::OptionsPageController(OptionsPageView *view,
                                              OptionsPageModel *model) {

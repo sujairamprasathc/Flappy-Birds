@@ -19,6 +19,8 @@ class OptionsPageView : public View {
 
  public:
   OptionsPageView(SDL_Window *, SDL_Surface *, OptionsPageModel *);
+  ~OptionsPageView();
+
   void render();
 };
 

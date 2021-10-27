@@ -18,7 +18,9 @@ class StartPageView : public View {
   SDL_Window *gWindow;
 
  public:
-  StartPageView(SDL_Window *, SDL_Surface *, StartPageModel *model);
+  StartPageView(SDL_Window *, SDL_Surface *, StartPageModel *);
+  ~StartPageView();
+
   void render();
 };
 

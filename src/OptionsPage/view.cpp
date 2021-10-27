@@ -1,5 +1,4 @@
 #include "view.h"
-#include <iostream>
 #include <string>
 
 OptionsPageView::OptionsPageView(SDL_Window *gWindow,
@@ -12,6 +11,8 @@ OptionsPageView::OptionsPageView(SDL_Window *gWindow,
 
   this->model->subscribe(this);
 }
+
+OptionsPageView::~OptionsPageView() { SDL_FreeSurface(gOptionsPage); }
 
 void OptionsPageView::render() {
   std::string filePath = "../res/Options";
@@ -31,6 +32,10 @@ void OptionsPageView::render() {
     filePath += "_SP";
   }
   filePath += ".bmp";
+
+  if (gOptionsPage != nullptr) {
+    SDL_FreeSurface(gOptionsPage);
+  }
   gOptionsPage = SDL_LoadBMP(filePath.c_str());
 
   SDL_BlitSurface(gOptionsPage, NULL, gScreenSurface, NULL);  // Apply the image

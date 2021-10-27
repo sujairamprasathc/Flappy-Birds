@@ -15,9 +15,9 @@ class StartPageModel {
   StartPageModel();
 
   void subscribe(StartPageView *);
-  void notify();
+  void notify() const;
 
-  int getCursorPosition();
+  int getCursorPosition() const;
 
   void moveCursorUp();
   void moveCursorDown();

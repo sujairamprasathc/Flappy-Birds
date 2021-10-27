@@ -2,8 +2,8 @@
 
 #include "AudioEngine.h"
 
-#include <unistd.h>
 #include <GL/freeglut.h>
+#include <unistd.h>
 
 GamePageModel gamePageModel;
 GamePageView gamePageView(&gamePageModel);

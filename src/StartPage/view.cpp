@@ -10,7 +10,13 @@ StartPageView::StartPageView(SDL_Window *gWindow, SDL_Surface *gScreenSurface,
   this->model->subscribe(this);
 }
 
+StartPageView::~StartPageView() { SDL_FreeSurface(gStartPage); }
+
 void StartPageView::render() {
+  if (gStartPage != nullptr) {
+    SDL_FreeSurface(gStartPage);
+  }
+
   if (this->model->getCursorPosition() == 1) {
     gStartPage = SDL_LoadBMP("../res/Start_Page_1.bmp");
   } else if (this->model->getCursorPosition() == 2) {

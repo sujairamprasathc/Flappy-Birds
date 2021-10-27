@@ -1,5 +1,4 @@
 #include "controller.h"
-//#include "../GameView/view.h"
 
 StartPageController::StartPageController(StartPageView *view,
                                          StartPageModel *model) {
@@ -16,18 +15,6 @@ bool StartPageController::handleEvent(SDL_Event &e) {
       case SDLK_UP:
         model->moveCursorUp();
         return true;
-      case SDLK_RETURN:
-        switch (model->getCursorPosition()) {
-          case 1:
-            // GameView::getInstance()->setView(3);
-            break;
-          case 2:
-            // GameView::getInstance()->setView(2);
-            break;
-          case 3:
-            // goto QUIT;
-            break;
-        }
     }
   }
   return false;
