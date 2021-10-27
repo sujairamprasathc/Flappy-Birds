@@ -3,7 +3,7 @@
 
 class Moon {
  public:
-  void draw();
+  void draw() const;
 };
 
 #endif  // MOON_H

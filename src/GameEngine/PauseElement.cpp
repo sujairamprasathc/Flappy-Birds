@@ -1,7 +1,7 @@
 #include "PauseElement.h"
 #include <GL/gl.h>
 
-void PauseElement::draw() {
+void PauseElement::draw() const {
   glColor4f(1.0, 1.0, 1.0, 1.0);
 
   glBegin(GL_TRIANGLES);

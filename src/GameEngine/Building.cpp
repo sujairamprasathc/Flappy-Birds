@@ -6,7 +6,7 @@ Building::Building(float height, float left, float right) {
   bottom_right = {right, -1.0f};
 }
 
-void Building::draw() {
+void Building::draw() const {
   glColor4f(0.289, 0.4882, 0.211, 1.0);
 
   glBegin(GL_TRIANGLES);

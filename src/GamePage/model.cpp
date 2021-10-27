@@ -19,13 +19,15 @@ void GamePageModel::subscribe(GamePageView* view) {
   this->observerList.push_back(view);
 }
 
-void GamePageModel::notify() {
+void GamePageModel::notify() const {
   for (auto& view : this->observerList) {
     view->render();
   }
 }
 
-float GamePageModel::getPositionOfBird() { return this->position_of_bird; }
+float GamePageModel::getPositionOfBird() const {
+  return this->position_of_bird;
+}
 
 float GamePageModel::getVelocityOfBird() {
   this->velocity_of_bird =
@@ -39,9 +41,10 @@ void GamePageModel::setVelocityOfBird(float velocity_of_bird) {
 
 void GamePageModel::setPositionOfBird(float position_of_bird) {
   this->position_of_bird = position_of_bird;
+  this->bird.setVerticalPosition(position_of_bird);
 }
 
-bool GamePageModel::isGamePaused() { return this->_isGamePaused; }
+bool GamePageModel::isGamePaused() const { return this->_isGamePaused; }
 
 void GamePageModel::togglePause() {
   this->_isGamePaused = !this->_isGamePaused;
@@ -51,21 +54,27 @@ void GamePageModel::pauseGame() { this->_isGamePaused = true; }
 
 void GamePageModel::resumeGame() { this->_isGamePaused = false; }
 
-Bird& GamePageModel::getBird() { return this->bird; }
+const Bird& GamePageModel::getBird() const { return this->bird; }
 
-Obstacle& GamePageModel::getObstacle1() { return this->obstacle1; }
+const Obstacle& GamePageModel::getObstacle1() const { return this->obstacle1; }
 
-Obstacle& GamePageModel::getObstacle2() { return this->obstacle2; }
+const Obstacle& GamePageModel::getObstacle2() const { return this->obstacle2; }
 
-std::vector<Building>& GamePageModel::getBuildings() { return this->buildings; }
+const std::vector<Building>& GamePageModel::getBuildings() const {
+  return this->buildings;
+}
 
-Moon& GamePageModel::getMoon() { return this->moon; }
+const Moon& GamePageModel::getMoon() const { return this->moon; }
 
-Stars& GamePageModel::getStars() { return this->stars; }
+const Stars& GamePageModel::getStars() const { return this->stars; }
 
-ScoreBoard& GamePageModel::getScoreBoard() { return this->scoreBoard; }
+const ScoreBoard& GamePageModel::getScoreBoard() const {
+  return this->scoreBoard;
+}
 
-PauseElement& GamePageModel::getPauseElement() { return this->pauseElement; }
+const PauseElement& GamePageModel::getPauseElement() const {
+  return this->pauseElement;
+}
 
 void GamePageModel::createObstacle(int a) {
   srand(time(NULL));
@@ -89,26 +98,23 @@ void GamePageModel::reset() {
   this->scoreBoard.setScore(0);
 }
 
-bool GamePageModel::isGameOver() {
+bool GamePageModel::isGameOver() const {
   auto birdPoints = bird.getBoundingBox();
 
   for (auto point : birdPoints) {
     if (obstacle1.isPointInside(point)) {
-      onGameOver();
       return true;
     }
   }
 
   for (auto point : birdPoints) {
     if (obstacle2.isPointInside(point)) {
-      onGameOver();
       return true;
     }
   }
 
   for (auto point : birdPoints) {
     if (point.second < -1.0f or point.second > 1.0f) {
-      onGameOver();
       return true;
     }
   }
@@ -157,4 +163,13 @@ void GamePageModel::onGameOver() {
     score_File_Out << highScores[i] << std::endl;
   }
   score_File.close();
+}
+
+void GamePageModel::moveGraphicElementsLeft() {
+  this->obstacle1.moveLeftBy(velocity_of_bird);
+  this->obstacle2.moveLeftBy(velocity_of_bird);
+
+  for (auto& building : this->buildings) {
+    building.moveLeft();
+  }
 }

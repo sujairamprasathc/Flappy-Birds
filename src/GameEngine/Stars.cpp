@@ -1,7 +1,7 @@
 #include "Stars.h"
 #include <GL/gl.h>
 
-void Stars::draw() {
+void Stars::draw() const {
   glColor4f(1.4, 1.8, 1.6, 1.0);
 
   glBegin(GL_POINTS);

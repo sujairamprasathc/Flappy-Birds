@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 #include <cmath>
 
-void Moon::draw() {
+void Moon::draw() const {
   float r1 = 0.1, r2 = 0.25, h = 0.5, k = 0.6, deg_to_rad = 3.14 / 180;
 
   glColor4f(1.0, 1.0, 1.0, 1.0);

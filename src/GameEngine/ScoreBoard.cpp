@@ -27,7 +27,7 @@ void itoa(int a, char *b[], int c) {
 
 ScoreBoard::ScoreBoard(unsigned position) { this->position = position; }
 
-void ScoreBoard::draw() {
+void ScoreBoard::draw() const {
   int sco = this->score;
   int pos = this->position;
 
@@ -63,6 +63,6 @@ void ScoreBoard::draw() {
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, hSco[i]);
 }
 
-unsigned ScoreBoard::getScore() { return this->score; }
+unsigned ScoreBoard::getScore() const { return this->score; }
 
 void ScoreBoard::setScore(unsigned score) { this->score = score; }

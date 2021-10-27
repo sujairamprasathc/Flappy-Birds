@@ -60,12 +60,7 @@ void GamePageController::idleStateHandler() {
       model->setPositionOfBird(model->getPositionOfBird() - velocity);
     }
 
-    this->model->getObstacle1().moveLeftBy(velocity);
-    this->model->getObstacle2().moveLeftBy(velocity);
-
-    for (auto &building : this->model->getBuildings()) {
-      building.moveLeft();
-    }
+    this->model->moveGraphicElementsLeft();
 
     this->model->calcScore();
 

@@ -18,13 +18,13 @@ class Obstacle {
  public:
   Obstacle(unsigned);
 
-  void draw();
+  void draw() const;
 
-  float getHeight();
+  float getHeight() const;
   void setHeight(float);
 
-  bool isPointInside(std::pair<float, float>);
-  std::vector<std::pair<float, float>> getBoundingBox();
+  bool isPointInside(std::pair<float, float>) const;
+  std::vector<std::pair<float, float>> getBoundingBox() const;
 
   void moveLeftBy(float);
 };

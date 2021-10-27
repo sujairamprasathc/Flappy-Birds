@@ -37,23 +37,23 @@ class GamePageModel {
   GamePageModel();
 
   void subscribe(GamePageView*);
-  void notify();
+  void notify() const;
 
-  bool isGamePaused();
+  bool isGamePaused() const;
   void pauseGame();
   void resumeGame();
   void togglePause();
 
-  Bird& getBird();
-  Obstacle& getObstacle1();
-  Obstacle& getObstacle2();
-  std::vector<Building>& getBuildings();
-  Moon& getMoon();
-  Stars& getStars();
-  ScoreBoard& getScoreBoard();
-  PauseElement& getPauseElement();
+  const Bird& getBird() const;
+  const Obstacle& getObstacle1() const;
+  const Obstacle& getObstacle2() const;
+  const std::vector<Building>& getBuildings() const;
+  const Moon& getMoon() const;
+  const Stars& getStars() const;
+  const ScoreBoard& getScoreBoard() const;
+  const PauseElement& getPauseElement() const;
 
-  float getPositionOfBird();
+  float getPositionOfBird() const;
   void setPositionOfBird(float);
 
   float getVelocityOfBird();
@@ -61,8 +61,10 @@ class GamePageModel {
 
   void createObstacle(int a);
   void reset();
-  bool isGameOver();
+  bool isGameOver() const;
   void calcScore();
+
+  void moveGraphicElementsLeft();
 };
 
 #endif  // GAME_PAGE_MODEL_H

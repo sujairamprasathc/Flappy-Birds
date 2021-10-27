@@ -3,7 +3,7 @@
 
 class Stars {
  public:
-  void draw();
+  void draw() const;
 };
 
 #endif  // STARS_H

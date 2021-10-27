@@ -4,12 +4,12 @@
 class GameEndBox {
   unsigned score;
 
-  void drawAlertBox();
+  void drawAlertBox() const;
 
  public:
   GameEndBox(unsigned);
 
-  void draw();
+  void draw() const;
 };
 
 #endif /* GAME_END_BOX_H */

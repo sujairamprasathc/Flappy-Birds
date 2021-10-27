@@ -10,11 +10,11 @@ class Bird {
  public:
   Bird(float);
 
-  void draw();
+  void draw() const;
 
   void setVerticalPosition(float);
 
-  std::vector<std::pair<float, float>> getBoundingBox();
+  std::vector<std::pair<float, float>> getBoundingBox() const;
 };
 
 #endif  // BIRD_H

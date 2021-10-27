@@ -35,7 +35,7 @@ void Obstacle::reset() {
   }
 }
 
-float Obstacle::getHeight() { return top_y; }
+float Obstacle::getHeight() const { return top_y; }
 
 void Obstacle::moveLeftBy(float displacement) {
   if (right_x < -1.0f) {
@@ -45,7 +45,7 @@ void Obstacle::moveLeftBy(float displacement) {
   right_x -= displacement;
 }
 
-void Obstacle::draw() {
+void Obstacle::draw() const {
   glColor4f(0.4, 1.0, 1.0, 1.0);
 
   glBegin(GL_POLYGON);
@@ -56,7 +56,7 @@ void Obstacle::draw() {
   glEnd();
 }
 
-bool Obstacle::isPointInside(std::pair<float, float> point) {
+bool Obstacle::isPointInside(std::pair<float, float> point) const {
   bool boundedByX, boundedByY;
   if (point.first < right_x && point.first > left_x) {
     boundedByX = true;
@@ -67,7 +67,7 @@ bool Obstacle::isPointInside(std::pair<float, float> point) {
   return boundedByX && boundedByY;
 }
 
-std::vector<std::pair<float, float>> Obstacle::getBoundingBox() {
+std::vector<std::pair<float, float>> Obstacle::getBoundingBox() const {
   std::vector<std::pair<float, float>> points;
 
   points.push_back(std::make_pair(left_x, top_y));

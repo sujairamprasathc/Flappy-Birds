@@ -3,7 +3,7 @@
 
 class PauseElement {
  public:
-  void draw();
+  void draw() const;
 };
 
 #endif  // PAUSE_ELEMENT_H

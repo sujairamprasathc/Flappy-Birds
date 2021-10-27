@@ -10,8 +10,7 @@
 #include "model.h"
 
 class GamePageView : public View {
-  GamePageModel *model;
-  GamePageController *controller;
+  const GamePageModel *model;
 
   void drawObstacle();
 

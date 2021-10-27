@@ -4,8 +4,8 @@
 #include "../GameEngine/GameEndBox.h"
 
 GamePageView::GamePageView(GamePageModel *model) {
+  model->subscribe(this);
   this->model = model;
-  this->model->subscribe(this);
 }
 
 void GamePageView::render() {
@@ -29,7 +29,6 @@ void GamePageView::render() {
   this->model->getMoon().draw();
   this->model->getStars().draw();
 
-  this->model->getBird().setVerticalPosition(this->model->getPositionOfBird());
   this->model->getBird().draw();
 
   this->model->getObstacle1().draw();

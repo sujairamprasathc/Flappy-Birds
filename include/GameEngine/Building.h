@@ -10,7 +10,7 @@ class Building {
  public:
   Building(float height, float left, float right);
 
-  void draw();
+  void draw() const;
 
   void setTopLeft(std::pair<float, float>);
   void setBottomRight(std::pair<float, float>);

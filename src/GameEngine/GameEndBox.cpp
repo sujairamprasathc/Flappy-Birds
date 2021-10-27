@@ -5,7 +5,7 @@
 
 GameEndBox::GameEndBox(unsigned score) { this->score = score; }
 
-void GameEndBox::drawAlertBox() {
+void GameEndBox::drawAlertBox() const {
   glColor4f(1.0, 1.0, 1.0, 1.0);
 
   glBegin(GL_TRIANGLES);
@@ -29,7 +29,7 @@ void GameEndBox::drawAlertBox() {
   glEnd();
 }
 
-void GameEndBox::draw() {
+void GameEndBox::draw() const {
   drawAlertBox();
 
   glColor4f(1.0, 0.4, 0.65, 1.0);

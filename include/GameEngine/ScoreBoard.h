@@ -10,9 +10,9 @@ class ScoreBoard {
  public:
   ScoreBoard(unsigned position);
 
-  void draw();
+  void draw() const;
 
-  unsigned getScore();
+  unsigned getScore() const;
   void setScore(unsigned);
 };
 
