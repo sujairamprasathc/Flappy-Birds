@@ -1,27 +1,13 @@
 #include "GuiRoot.h"
 
 #include "AudioEngine.h"
-#include "CSRP_SDL2_engine.h"
 
+#include <unistd.h>
 #include <GL/freeglut.h>
 
 GamePageModel gamePageModel;
 GamePageView gamePageView(&gamePageModel);
 GamePageController gamePageController(&gamePageView, &gamePageModel);
-
-void Init() {
-  /*
-  Initialise or reinitialise the game, resetting
-  the variables and swapping to start page
-  */
-  if (!CSRP_SDL2::SDL2_Engine_init()) abort();
-
-  /*if (optionsPageModel.isMusicOn()) {
-    if (Mix_PlayingMusic() != 1) play_Music("../res/01.mp3");
-  } else {
-    stop_Music();
-  }*/
-}
 
 static void resize(int width, int height) {
   /*
@@ -59,8 +45,6 @@ GuiRoot::GuiRoot() {
     ;
 
   gamePageModel.pauseGame();
-
-  Init();
 
   this->gWindow =
       SDL_CreateWindow("FLAPPY BIRDS", 150, 50, 640, 480, SDL_WINDOW_SHOWN);
