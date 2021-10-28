@@ -1,5 +1,5 @@
-#ifndef BIRD_H
-#define BIRD_H 1
+#ifndef FLAPPY_BIRD_COMPONENTS_BIRD_H
+#define FLAPPY_BIRD_COMPONENTS_BIRD_H
 
 #include <utility>
 #include <vector>
@@ -17,4 +17,4 @@ class Bird {
   std::vector<std::pair<float, float>> getBoundingBox() const;
 };
 
-#endif  // BIRD_H
+#endif  // FLAPPY_BIRD_COMPONENTS_BIRD_H

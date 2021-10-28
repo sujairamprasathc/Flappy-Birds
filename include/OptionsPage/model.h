@@ -1,5 +1,5 @@
-#ifndef OPTIONS_PAGE_MODEL_H
-#define OPTIONS_PAGE_MODEL_H 1
+#ifndef FLAPPY_BIRD_OPTIONS_PAGE_MODEL_H
+#define FLAPPY_BIRD_OPTIONS_PAGE_MODEL_H
 
 #include "decls.h"
 
@@ -31,4 +31,4 @@ class OptionsPageModel {
   void toggleMusic();
 };
 
-#endif  // OPTIONS_PAGE_MODEL_H
+#endif  // FLAPPY_BIRD_OPTIONS_PAGE_MODEL_H

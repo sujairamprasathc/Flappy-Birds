@@ -1,7 +1,7 @@
 #include "view.h"
 #include <GL/gl.h>
 #include <GL/glut.h>
-#include "../GameEngine/GameEndBox.h"
+#include "Components/GameEndBox.h"
 
 GamePageView::GamePageView(GamePageModel *model) {
   model->subscribe(this);

@@ -1,7 +1,6 @@
 #include "GuiRoot.h"
 
-#include "AudioEngine.h"
-#include "GameEngine/ComponentFactory.h"
+#include "Components/ComponentFactory.h"
 
 #include <GL/freeglut.h>
 #include <unistd.h>
@@ -95,7 +94,7 @@ void GuiRoot::handleEvents() {
       } else {
         if (e.type == SDL_QUIT) {
           // Quit application
-          stop_Music();
+          musicPlayer.stop();
           return;
         } else if (e.type == SDL_KEYDOWN) {
           switch (e.key.keysym.sym) {
@@ -122,7 +121,7 @@ void GuiRoot::handleEvents() {
                     break;
                   case 0:
                     // Quit application
-                    stop_Music();
+                    musicPlayer.stop();
                     return;
                 }
               }

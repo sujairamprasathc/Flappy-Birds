@@ -1,9 +1,6 @@
 #include "AudioEngine.h"
 
-Mix_Music *gMusic = NULL;
-
-// SDL2 Codes
-int play_Music(std::string fName) {
+bool MusicPlayer::play(std::string fName) {
   if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) >= 0) {
     gMusic = Mix_LoadMUS(fName.c_str());
     if (gMusic != NULL)
@@ -13,7 +10,7 @@ int play_Music(std::string fName) {
   return 0;
 }
 
-void stop_Music() {
+void MusicPlayer::stop() {
   Mix_HaltMusic();
   Mix_FreeMusic(gMusic);
   gMusic = NULL;

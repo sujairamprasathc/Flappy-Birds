@@ -1,5 +1,5 @@
-#ifndef BUILDING_H
-#define BUILDING_H 1
+#ifndef FLAPPY_BIRD_COMPONENTS_BUILDING_H
+#define FLAPPY_BIRD_COMPONENTS_BUILDING_H
 
 #include <utility>
 
@@ -18,4 +18,4 @@ class Building {
   void moveLeft();
 };
 
-#endif  // BUILDING_H
+#endif  // FLAPPY_BIRD_COMPONENTS_BUILDING_H

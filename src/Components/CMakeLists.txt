@@ -1,4 +1,4 @@
-include_directories(../../include/GameEngine/)
+include_directories(../../include/Components/)
 
 add_library(Building Building.cpp)
 add_library(Obstacle Obstacle.cpp)

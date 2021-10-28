@@ -1,5 +1,5 @@
-#ifndef MODEL_H
-#define MODEL_H 1
+#ifndef FLAPPY_BIRD_MODEL_H
+#define FLAPPY_BIRD_MODEL_H
 
 #include "decls.h"
 
@@ -11,4 +11,4 @@ class Model {
   void notify();
 };
 
-#endif  // MODEL_H
+#endif  // FLAPPY_BIRD_MODEL_H

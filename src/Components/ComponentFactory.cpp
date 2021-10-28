@@ -1,8 +1,6 @@
 #include "ComponentFactory.h"
 
-Bird* ComponentFactory::createBird() const {
-  return new Bird(0.0f);
-}
+Bird* ComponentFactory::createBird() const { return new Bird(0.0f); }
 
 Building* ComponentFactory::createBuilding(unsigned type) const {
   switch (type) {
@@ -19,9 +17,7 @@ Building* ComponentFactory::createBuilding(unsigned type) const {
   }
 }
 
-Moon* ComponentFactory::createMoon() const {
-  return new Moon();
-}
+Moon* ComponentFactory::createMoon() const { return new Moon(); }
 
 Obstacle* ComponentFactory::createObstacle(unsigned type) const {
   switch (type) {
@@ -38,10 +34,8 @@ PauseElement* ComponentFactory::createPauseElement() const {
   return new PauseElement();
 }
 
-ScoreBoard* ComponentFactory::createScoreBoard() const {
-  return new ScoreBoard();
+Scoreboard* ComponentFactory::createScoreboard() const {
+  return new Scoreboard();
 }
 
-Stars* ComponentFactory::createStars() const {
-  return new Stars();
-}
+Stars* ComponentFactory::createStars() const { return new Stars(); }

@@ -1,5 +1,5 @@
-#ifndef START_PAGE_MODEL_H
-#define START_PAGE_MODEL_H 1
+#ifndef FLAPPY_BIRD_START_PAGE_MODEL_H
+#define FLAPPY_BIRD_START_PAGE_MODEL_H
 
 #include "decls.h"
 
@@ -23,4 +23,4 @@ class StartPageModel {
   void moveCursorDown();
 };
 
-#endif  // START_PAGE_MODEL_H
+#endif  // FLAPPY_BIRD_START_PAGE_MODEL_H

@@ -1,5 +1,5 @@
-#ifndef GAME_PAGE_VIEW_H
-#define GAME_PAGE_VIEW_H 1
+#ifndef FLAPPY_BIRD_GAME_PAGE_VIEW_H
+#define FLAPPY_BIRD_GAME_PAGE_VIEW_H
 
 #include <SDL2/SDL.h>
 
@@ -16,7 +16,7 @@ class GamePageView : public View {
 
  public:
   GamePageView(GamePageModel *model);
-  void render();
+  void render() override;
 };
 
-#endif  // GAME_PAGE_VIEW_H
+#endif  // FLAPPY_BIRD_GAME_PAGE_VIEW_H

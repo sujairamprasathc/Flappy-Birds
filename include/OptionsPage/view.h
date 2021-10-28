@@ -1,5 +1,5 @@
-#ifndef OPTIONS_PAGE_VIEW_H
-#define OPTIONS_PAGE_VIEW_H 1
+#ifndef FLAPPY_BIRD_OPTIONS_PAGE_VIEW_H
+#define FLAPPY_BIRD_OPTIONS_PAGE_VIEW_H
 
 #include <SDL2/SDL.h>
 
@@ -21,7 +21,7 @@ class OptionsPageView : public View {
   OptionsPageView(SDL_Window *, SDL_Surface *, OptionsPageModel *);
   ~OptionsPageView();
 
-  void render();
+  void render() override;
 };
 
-#endif  // OPTIONS_PAGE_VIEW_H
+#endif  // FLAPPY_BIRD_OPTIONS_PAGE_VIEW_H

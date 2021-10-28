@@ -1,5 +1,5 @@
-#ifndef START_PAGE_VIEW_H
-#define START_PAGE_VIEW_H 1
+#ifndef FLAPPY_BIRD_START_PAGE_VIEW_H
+#define FLAPPY_BIRD_START_PAGE_VIEW_H
 
 #include <SDL2/SDL.h>
 
@@ -21,7 +21,7 @@ class StartPageView : public View {
   StartPageView(SDL_Window *, SDL_Surface *, StartPageModel *);
   ~StartPageView();
 
-  void render();
+  void render() override;
 };
 
-#endif  // START_PAGE_VIEW_H
+#endif  // FLAPPY_BIRD_START_PAGE_VIEW_H

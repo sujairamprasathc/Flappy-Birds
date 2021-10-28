@@ -1,5 +1,5 @@
-#ifndef OPTIONS_PAGE_CONTROLLER_H
-#define OPTIONS_PAGE_CONTROLLER_H 1
+#ifndef FLAPPY_BIRD_OPTIONS_PAGE_CONTROLLER_H
+#define FLAPPY_BIRD_OPTIONS_PAGE_CONTROLLER_H
 
 #include "decls.h"
 
@@ -16,7 +16,7 @@ class OptionsPageController : public Controller {
 
  public:
   OptionsPageController(OptionsPageView *, OptionsPageModel *);
-  bool handleEvent(SDL_Event &);
+  bool handleEvent(SDL_Event &event) override;
 };
 
-#endif  // OPTIONS_PAGE_CONTROLLER_H
+#endif  // FLAPPY_BIRD_OPTIONS_PAGE_CONTROLLER_H

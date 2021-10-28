@@ -12,7 +12,7 @@ add_subdirectory(src/StartPage/)
 add_subdirectory(src/OptionsPage/)
 add_subdirectory(src/GamePage/)
 add_subdirectory(src/GuiRoot/)
-add_subdirectory(src/GameEngine/)
+add_subdirectory(src/Components/)
 
 # Executable
 add_executable(Flappy-Birds src/main.cpp src/AudioEngine.cpp)

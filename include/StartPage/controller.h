@@ -1,5 +1,5 @@
-#ifndef START_PAGE_CONTROLLER_H
-#define START_PAGE_CONTROLLER_H 1
+#ifndef FLAPPY_BIRD_START_PAGE_CONTROLLER_H
+#define FLAPPY_BIRD_START_PAGE_CONTROLLER_H
 
 #include "decls.h"
 
@@ -16,7 +16,7 @@ class StartPageController : public Controller {
 
  public:
   StartPageController(StartPageView *, StartPageModel *);
-  bool handleEvent(SDL_Event &);
+  bool handleEvent(SDL_Event &event) override;
 };
 
-#endif  // START_PAGE_CONTROLLER_H
+#endif  // FLAPPY_BIRD_START_PAGE_CONTROLLER_H

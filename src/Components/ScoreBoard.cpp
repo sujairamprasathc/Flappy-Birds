@@ -1,4 +1,4 @@
-#include "ScoreBoard.h"
+#include "Scoreboard.h"
 
 #include <GL/freeglut.h>
 #include <GL/gl.h>
@@ -25,9 +25,9 @@ void itoa(int a, char *b[], int c) {
   *b[c] = (a % 10) + 48;
 }
 
-ScoreBoard::ScoreBoard() { this->score = 0; }
+Scoreboard::Scoreboard() { this->score = 0; }
 
-void ScoreBoard::draw() const {
+void Scoreboard::draw() const {
   int sco = this->score;
 
   glColor4f(1.0, 1.0, 1.0, 1.0);
@@ -60,6 +60,6 @@ void ScoreBoard::draw() const {
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, hSco[i]);
 }
 
-unsigned ScoreBoard::getScore() const { return this->score; }
+unsigned Scoreboard::getScore() const { return this->score; }
 
-void ScoreBoard::setScore(unsigned score) { this->score = score; }
+void Scoreboard::setScore(unsigned score) { this->score = score; }

@@ -3,9 +3,8 @@
 #include <algorithm>
 #include <fstream>
 
-GamePageModel::GamePageModel(ComponentFactory *factory)
-    : buildings(4),
-      _isGamePaused(false) {
+GamePageModel::GamePageModel(ComponentFactory* factory)
+    : buildings(4), _isGamePaused(false) {
   bird = factory->createBird();
   for (unsigned i = 0; i < 4; ++i) {
     buildings[i] = factory->createBuilding(i + 1);
@@ -14,7 +13,7 @@ GamePageModel::GamePageModel(ComponentFactory *factory)
   obstacle1 = factory->createObstacle(1);
   obstacle2 = factory->createObstacle(2);
   pauseElement = factory->createPauseElement();
-  scoreBoard = factory->createScoreBoard();
+  scoreBoard = factory->createScoreboard();
   stars = factory->createStars();
 }
 
@@ -59,9 +58,13 @@ void GamePageModel::resumeGame() { this->_isGamePaused = false; }
 
 const Bird& GamePageModel::getBird() const { return *(this->bird); }
 
-const Obstacle& GamePageModel::getObstacle1() const { return *(this->obstacle1); }
+const Obstacle& GamePageModel::getObstacle1() const {
+  return *(this->obstacle1);
+}
 
-const Obstacle& GamePageModel::getObstacle2() const { return *(this->obstacle2); }
+const Obstacle& GamePageModel::getObstacle2() const {
+  return *(this->obstacle2);
+}
 
 const std::vector<Building*>& GamePageModel::getBuildings() const {
   return this->buildings;
@@ -71,7 +74,7 @@ const Moon& GamePageModel::getMoon() const { return *(this->moon); }
 
 const Stars& GamePageModel::getStars() const { return *(this->stars); }
 
-const ScoreBoard& GamePageModel::getScoreBoard() const {
+const Scoreboard& GamePageModel::getScoreBoard() const {
   return *(this->scoreBoard);
 }
 

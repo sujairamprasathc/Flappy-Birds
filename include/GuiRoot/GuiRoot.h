@@ -1,5 +1,5 @@
-#ifndef GUI_ROOT_VIEW_H
-#define GUI_ROOT_VIEW_H 1
+#ifndef FLAPPY_BIRD_GUI_ROOT_VIEW_H
+#define FLAPPY_BIRD_GUI_ROOT_VIEW_H
 
 #include "StartPage/controller.h"
 #include "StartPage/model.h"
@@ -12,6 +12,8 @@
 #include "GamePage/controller.h"
 #include "GamePage/model.h"
 #include "GamePage/view.h"
+
+#include "AudioEngine.h"
 
 #include <pthread.h>
 
@@ -29,6 +31,8 @@ class GuiRoot {
   OptionsPageModel *optionsPageModel;
   OptionsPageView *optionsPageView;
   OptionsPageController *optionsPageController;
+
+  MusicPlayer musicPlayer;
 
   View *view;
   Model *model;
@@ -54,4 +58,4 @@ class GuiRoot {
   void setViewId(unsigned);
 };
 
-#endif  // GUI_ROOT_VIEW_H
+#endif  // FLAPPY_BIRD_GUI_ROOT_VIEW_H

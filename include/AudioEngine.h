@@ -1,14 +1,15 @@
-#ifndef AUDIO_ENGINE_H
-#define AUDIO_ENGINE_H
+#ifndef FLAPPY_BIRD_AUDIO_ENGINE_H
+#define FLAPPY_BIRD_AUDIO_ENGINE_H
 
 #include <SDL2/SDL_mixer.h>
 #include <string>
 
-extern Mix_Music *gMusic;
+class MusicPlayer {
+  Mix_Music *gMusic;
 
-// SDL2 Codes
-int play_Music(std::string fName);
+ public:
+  bool play(std::string fName);
+  void stop();
+};
 
-void stop_Music();
-
-#endif /* AUDIO_ENGINE_H */
+#endif  // FLAPPY_BIRD_AUDIO_ENGINE_H

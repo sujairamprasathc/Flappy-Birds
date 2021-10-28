@@ -1,5 +1,5 @@
-#ifndef GAME_PAGE_CONTROLLER_H
-#define GAME_PAGE_CONTROLLER_H 1
+#ifndef FLAPPY_BIRD_GAME_PAGE_CONTROLLER_H
+#define FLAPPY_BIRD_GAME_PAGE_CONTROLLER_H
 
 #include "decls.h"
 
@@ -28,4 +28,4 @@ class GamePageController {
   void idleStateHandler();
 };
 
-#endif  // GAME_PAGE_CONTROLLER_H
+#endif  // FLAPPY_BIRD_GAME_PAGE_CONTROLLER_H

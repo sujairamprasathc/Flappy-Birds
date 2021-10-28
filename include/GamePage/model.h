@@ -1,11 +1,11 @@
-#ifndef GAME_PAGE_MODEL_H
-#define GAME_PAGE_MODEL_H 1
+#ifndef FLAPPY_BIRD_GAME_PAGE_MODEL_H
+#define FLAPPY_BIRD_GAME_PAGE_MODEL_H
 
 #include "decls.h"
 
 #include "view.h"
 
-#include "GameEngine/ComponentFactory.h"
+#include "Components/ComponentFactory.h"
 
 #include <vector>
 
@@ -18,17 +18,17 @@ class GamePageModel {
   bool _isGamePaused;
 
   std::vector<Building*> buildings;
-  Bird *bird;
+  Bird* bird;
   Obstacle *obstacle1, *obstacle2;
-  Moon *moon;
-  Stars *stars;
-  ScoreBoard *scoreBoard;
-  PauseElement *pauseElement;
+  Moon* moon;
+  Stars* stars;
+  Scoreboard* scoreBoard;
+  PauseElement* pauseElement;
 
   void onGameOver();
 
  public:
-  GamePageModel(ComponentFactory *);
+  GamePageModel(ComponentFactory*);
 
   void subscribe(GamePageView*);
   void notify() const;
@@ -44,7 +44,7 @@ class GamePageModel {
   const std::vector<Building*>& getBuildings() const;
   const Moon& getMoon() const;
   const Stars& getStars() const;
-  const ScoreBoard& getScoreBoard() const;
+  const Scoreboard& getScoreBoard() const;
   const PauseElement& getPauseElement() const;
 
   float getPositionOfBird() const;
@@ -61,4 +61,4 @@ class GamePageModel {
   void moveGraphicElementsLeft();
 };
 
-#endif  // GAME_PAGE_MODEL_H
+#endif  // FLAPPY_BIRD_GAME_PAGE_MODEL_H

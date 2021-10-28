@@ -1,5 +1,5 @@
-#ifndef VIEW_H
-#define VIEW_H 1
+#ifndef FLAPPY_BIRD_VIEW_H
+#define FLAPPY_BIRD_VIEW_H
 
 #include <SDL2/SDL.h>
 
@@ -13,4 +13,4 @@ class View {
   virtual void render() = 0;
 };
 
-#endif  // VIEW_H
+#endif  // FLAPPY_BIRD_VIEW_H

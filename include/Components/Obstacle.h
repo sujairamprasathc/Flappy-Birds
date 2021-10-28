@@ -1,5 +1,5 @@
-#ifndef OBSTACLE_H
-#define OBSTACLE_H 1
+#ifndef FLAPPY_BIRD_COMPONENTS_OBSTACLE_H
+#define FLAPPY_BIRD_COMPONENTS_OBSTACLE_H
 
 #include <utility>
 #include <vector>
@@ -29,4 +29,4 @@ class Obstacle {
   void moveLeftBy(float);
 };
 
-#endif  // OBSTACLE_H
+#endif  // FLAPPY_BIRD_COMPONENTS_OBSTACLE_H

@@ -1,5 +1,5 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H 1
+#ifndef FLAPPY_BIRD_CONTROLLER_H
+#define FLAPPY_BIRD_CONTROLLER_H
 
 #include "decls.h"
 
@@ -10,4 +10,4 @@ class Controller {
   virtual bool handleEvent(SDL_Event &) = 0;
 };
 
-#endif  // CONTROLLER_H
+#endif  // FLAPPY_BIRD_CONTROLLER_H
