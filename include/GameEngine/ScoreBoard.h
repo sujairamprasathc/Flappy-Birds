@@ -1,14 +1,11 @@
 #ifndef SCORE_BOARD_H
 #define SCORE_BOARD_H 1
 
-#define TOP_RIGHT 1
-
 class ScoreBoard {
   unsigned score;
-  unsigned position;
 
  public:
-  ScoreBoard(unsigned position);
+  ScoreBoard();
 
   void draw() const;
 

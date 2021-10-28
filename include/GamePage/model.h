@@ -5,13 +5,7 @@
 
 #include "view.h"
 
-#include "../GameEngine/Bird.h"
-#include "../GameEngine/Building.h"
-#include "../GameEngine/Moon.h"
-#include "../GameEngine/Obstacle.h"
-#include "../GameEngine/PauseElement.h"
-#include "../GameEngine/ScoreBoard.h"
-#include "../GameEngine/Stars.h"
+#include "GameEngine/ComponentFactory.h"
 
 #include <vector>
 
@@ -23,18 +17,18 @@ class GamePageModel {
 
   bool _isGamePaused;
 
-  std::vector<Building> buildings;
-  Bird bird;
-  Obstacle obstacle1, obstacle2;
-  Moon moon;
-  Stars stars;
-  ScoreBoard scoreBoard;
-  PauseElement pauseElement;
+  std::vector<Building*> buildings;
+  Bird *bird;
+  Obstacle *obstacle1, *obstacle2;
+  Moon *moon;
+  Stars *stars;
+  ScoreBoard *scoreBoard;
+  PauseElement *pauseElement;
 
   void onGameOver();
 
  public:
-  GamePageModel();
+  GamePageModel(ComponentFactory *);
 
   void subscribe(GamePageView*);
   void notify() const;
@@ -47,7 +41,7 @@ class GamePageModel {
   const Bird& getBird() const;
   const Obstacle& getObstacle1() const;
   const Obstacle& getObstacle2() const;
-  const std::vector<Building>& getBuildings() const;
+  const std::vector<Building*>& getBuildings() const;
   const Moon& getMoon() const;
   const Stars& getStars() const;
   const ScoreBoard& getScoreBoard() const;

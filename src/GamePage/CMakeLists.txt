@@ -1,4 +1,4 @@
-include_directories(../../include/GamePage/)
+include_directories(../../include/GamePage/ ../../include/)
 
 add_library(GamePageController ./controller.cpp)
 target_link_libraries(GamePageController GamePageModel GamePageView)

@@ -8,3 +8,5 @@ add_library(Stars Stars.cpp)
 add_library(ScoreBoard ScoreBoard.cpp)
 add_library(PauseElement PauseElement.cpp)
 add_library(GameEndBox GameEndBox.cpp)
+
+add_library(ComponentFactory ComponentFactory.cpp)

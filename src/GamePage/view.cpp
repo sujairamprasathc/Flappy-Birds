@@ -24,7 +24,7 @@ void GamePageView::render() {
   }
 
   for (unsigned i = 0; i < 4; ++i) {
-    this->model->getBuildings()[i].draw();
+    this->model->getBuildings()[i]->draw();
   }
   this->model->getMoon().draw();
   this->model->getStars().draw();

@@ -1,11 +1,14 @@
 #include "GuiRoot.h"
 
 #include "AudioEngine.h"
+#include "GameEngine/ComponentFactory.h"
 
 #include <GL/freeglut.h>
 #include <unistd.h>
 
-GamePageModel gamePageModel;
+ComponentFactory factory;
+
+GamePageModel gamePageModel(&factory);
 GamePageView gamePageView(&gamePageModel);
 GamePageController gamePageController(&gamePageView, &gamePageModel);
 
@@ -107,8 +110,7 @@ void GuiRoot::handleEvents() {
                     // Wait until game ends
                     while (!gamePageModel.isGameOver())
                       ;
-                    sleep(1);
-                    gamePageModel = GamePageModel();
+                    gamePageModel.reset();
                     SDL_ShowWindow(gWindow);
                     view->render();
                     break;

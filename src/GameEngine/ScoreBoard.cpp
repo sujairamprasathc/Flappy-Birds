@@ -25,11 +25,10 @@ void itoa(int a, char *b[], int c) {
   *b[c] = (a % 10) + 48;
 }
 
-ScoreBoard::ScoreBoard(unsigned position) { this->position = position; }
+ScoreBoard::ScoreBoard() { this->score = 0; }
 
 void ScoreBoard::draw() const {
   int sco = this->score;
-  int pos = this->position;
 
   glColor4f(1.0, 1.0, 1.0, 1.0);
 
@@ -38,12 +37,10 @@ void ScoreBoard::draw() const {
   for (int i = 0; i < 10; i++) scP[i] = &sc[i];
   itoa(sco, scP, 3);
 
-  if (pos == TOP_RIGHT) {
-    glRasterPos2f(0.65, 0.85);
-    glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"SCORE ");
-    for (int i = 0; i < 10; i++)
-      glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, sc[i]);
-  }
+  glRasterPos2f(0.65, 0.85);
+  glutBitmapString(GLUT_BITMAP_HELVETICA_18, (const unsigned char *)"SCORE ");
+  for (int i = 0; i < 10; i++)
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, sc[i]);
 
   float high_Score;
   char hSco[3], *hScoP[3];
