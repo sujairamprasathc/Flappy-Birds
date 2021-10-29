@@ -5,16 +5,21 @@
 #include <vector>
 
 class Bird {
+  using Vertex = std::pair<float, float>;
+  using Vertices = std::vector<Vertex>;
+
   float verticalPosition;
+
+ protected:
+  virtual Vertices computeVertices() const;
 
  public:
   Bird(float);
 
-  void draw() const;
+  virtual void draw() const;
+  virtual Vertices getBoundingBox() const;
 
-  void setVerticalPosition(float);
-
-  std::vector<std::pair<float, float>> getBoundingBox() const;
+  virtual void setVerticalPosition(float);
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_BIRD_H

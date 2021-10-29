@@ -3,7 +3,7 @@
 
 class Moon {
  public:
-  void draw() const;
+  static void draw();
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_MOON_H

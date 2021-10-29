@@ -1,18 +1,27 @@
 #include "AudioEngine.h"
 
 bool MusicPlayer::play(std::string fName) {
-  if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) >= 0) {
+  const int output_sampling_frequency = 44100;
+  const int output_channel = 2;  // 1 - mono, 2 - stereo
+  const int output_chunksize = 2048;
+  if (Mix_OpenAudio(output_sampling_frequency, MIX_DEFAULT_FORMAT,
+                    output_channel, output_chunksize) >= 0) {
     gMusic = Mix_LoadMUS(fName.c_str());
-    if (gMusic != NULL)
-      if (Mix_PlayingMusic() == 0) Mix_PlayMusic(gMusic, -1);
+    if (gMusic != nullptr) {
+      if (Mix_PlayingMusic() == 0) {
+        Mix_PlayMusic(gMusic, -1);
+      }
+    } else {
+      return false;
+    }
   }
 
-  return 0;
+  return true;
 }
 
 void MusicPlayer::stop() {
   Mix_HaltMusic();
   Mix_FreeMusic(gMusic);
-  gMusic = NULL;
+  gMusic = nullptr;
   Mix_Quit();
 }

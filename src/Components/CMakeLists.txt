@@ -10,3 +10,4 @@ add_library(PauseElement PauseElement.cpp)
 add_library(GameEndBox GameEndBox.cpp)
 
 add_library(ComponentFactory ComponentFactory.cpp)
+target_link_libraries(ComponentFactory Bird)

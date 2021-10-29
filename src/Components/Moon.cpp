@@ -2,23 +2,36 @@
 #include <GL/gl.h>
 #include <cmath>
 
-void Moon::draw() const {
-  float r1 = 0.1, r2 = 0.25, h = 0.5, k = 0.6, deg_to_rad = 3.14 / 180;
+void Moon::draw() {
+  float h = 0.5F;  // NOLINT
+  float k = 0.6F;  // NOLINT
+  const float r1 = 0.1;
+  const float r2 = 0.25;
+  const float deg_to_rad = 3.14 / 180;
 
-  glColor4f(1.0, 1.0, 1.0, 1.0);
+  const unsigned arc1StartAngle = 260;
+  const unsigned arc1EndAngle = 390;
+  const unsigned arc2StartAngle = 305;
+  const unsigned arc2EndAngle = 345;
+
+  glColor4f(1.0, 1.0, 1.0, 1.0);  // NOLINT
 
   glBegin(GL_POINTS);
 
-  for (float theta = 260.0; theta < 390; theta += 1)
-    glVertex2f(r1 * cos(theta * deg_to_rad) + h,
-               r1 * sin(theta * deg_to_rad) + k);
+  // Draw an arc
+  for (unsigned theta = arc1StartAngle; theta < arc1EndAngle; theta += 1) {
+    glVertex2f(r1 * cos(static_cast<float>(theta) * deg_to_rad) + h,
+               r1 * sin(static_cast<float>(theta) * deg_to_rad) + k);
+  }
 
-  h = h - 0.2 + 0.045;
-  k = k + 0.2 - 0.09;
+  h = h - 0.2F + 0.045F;  // NOLINT
+  k = k + 0.2F - 0.09F;   // NOLINT
 
-  for (float theta = 305.0; theta < 345; theta += 1)
-    glVertex2f(r2 * cos(theta * deg_to_rad) + h,
-               r2 * sin(theta * deg_to_rad) + k);
+  // Draw an arc
+  for (unsigned theta = arc2StartAngle; theta < arc2EndAngle; theta += 1) {
+    glVertex2f(r2 * cos(static_cast<float>(theta) * deg_to_rad) + h,
+               r2 * sin(static_cast<float>(theta) * deg_to_rad) + k);
+  }
 
   glEnd();
 }

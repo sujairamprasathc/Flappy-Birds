@@ -4,7 +4,7 @@
 class GameEndBox {
   unsigned score;
 
-  void drawAlertBox() const;
+  static void drawAlertBox();
 
  public:
   GameEndBox(unsigned);

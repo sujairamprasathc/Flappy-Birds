@@ -1,34 +1,43 @@
 #include "Bird.h"
 #include <GL/gl.h>
 
+using Vertex = std::pair<float, float>;
+using Vertices = std::vector<Vertex>;
+
 Bird::Bird(float verticalPosition) {
   this->verticalPosition = verticalPosition;
 }
 
+Vertices Bird::computeVertices() const {
+  Vertices vertices(4);
+
+  const float birdRadius = 0.1;
+
+  vertices[0].first = birdRadius;
+  vertices[0].second = verticalPosition + birdRadius;
+  vertices[1].first = -birdRadius;
+  vertices[1].second = verticalPosition + birdRadius;
+  vertices[2].first = -birdRadius;
+  vertices[2].second = verticalPosition - birdRadius;
+  vertices[3].first = birdRadius;
+  vertices[3].second = verticalPosition - birdRadius;
+
+  return vertices;
+}
+
 void Bird::draw() const {
-  float vertex[4][2];
+  auto vertices = computeVertices();
 
-  vertex[0][0] = 0.1;
-  vertex[0][1] = verticalPosition + 0.1;
-  vertex[1][0] = -0.1;
-  vertex[1][1] = verticalPosition + 0.1;
-  vertex[2][0] = -0.1;
-  vertex[2][1] = verticalPosition - 0.1;
-  vertex[3][0] = 0.1;
-  vertex[3][1] = verticalPosition - 0.1;
+  const float red = 1.0;
+  const float green = 0.25;
+  const float blue = 0.25;
+  const float alpha = 1.0;
+  glColor4f(red, green, blue, alpha);
 
-  glColor4f(1.0, 0.25, 0.25, 1.0);
-
-  glBegin(GL_TRIANGLES);
-  glVertex2f(vertex[0][0], vertex[0][1]);
-  glVertex2f(vertex[1][0], vertex[1][1]);
-  glVertex2f(vertex[2][0], vertex[2][1]);
-  glEnd();
-
-  glBegin(GL_TRIANGLES);
-  glVertex2f(vertex[2][0], vertex[2][1]);
-  glVertex2f(vertex[3][0], vertex[3][1]);
-  glVertex2f(vertex[0][0], vertex[0][1]);
+  glBegin(GL_POLYGON);
+  for (auto &vertex : vertices) {
+    glVertex2f(vertex.first, vertex.second);
+  }
   glEnd();
 }
 
@@ -36,11 +45,4 @@ void Bird::setVerticalPosition(float verticalPosition) {
   this->verticalPosition = verticalPosition;
 }
 
-std::vector<std::pair<float, float>> Bird::getBoundingBox() const {
-  std::vector<std::pair<float, float>> points;
-  points.push_back(std::make_pair(-0.1, this->verticalPosition + 0.1));
-  points.push_back(std::make_pair(0.1, this->verticalPosition + 0.1));
-  points.push_back(std::make_pair(0.1, this->verticalPosition - 0.1));
-  points.push_back(std::make_pair(-0.1, this->verticalPosition - 0.1));
-  return points;
-}
+Vertices Bird::getBoundingBox() const { return this->computeVertices(); }

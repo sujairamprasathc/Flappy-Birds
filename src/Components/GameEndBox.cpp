@@ -5,42 +5,43 @@
 
 GameEndBox::GameEndBox(unsigned score) { this->score = score; }
 
-void GameEndBox::drawAlertBox() const {
-  glColor4f(1.0, 1.0, 1.0, 1.0);
+void GameEndBox::drawAlertBox() {
+  // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  glColor4f(1.0, 1.0, 1.0, 1.0);  // NOLINT
 
-  glBegin(GL_TRIANGLES);
-  glVertex2f(-0.4, -0.4);
-  glVertex2f(0.4, -0.4);
-  glVertex2f(-0.4, 0.4);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glVertex2f(-0.4, 0.4);
-  glVertex2f(0.4, -0.4);
-  glVertex2f(0.4, 0.4);
+  glBegin(GL_POLYGON);
+  glVertex2f(-0.4, -0.4);  // NOLINT
+  glVertex2f(0.4, -0.4);   // NOLINT
+  glVertex2f(-0.4, 0.4);   // NOLINT
+  glVertex2f(0.4, -0.4);   // NOLINT
   glEnd();
 
-  glColor4f(0.0, 0.0, 0.0, 0.0);
+  glColor4f(0.0, 0.0, 0.0, 0.0);  // NOLINT
 
   glBegin(GL_LINE_LOOP);
-  glVertex2f(-0.35, -0.35);
-  glVertex2f(0.35, -0.35);
-  glVertex2f(0.35, 0.35);
-  glVertex2f(-0.35, 0.35);
+  glVertex2f(-0.35, -0.35);  // NOLINT
+  glVertex2f(0.35, -0.35);   // NOLINT
+  glVertex2f(0.35, 0.35);    // NOLINT
+  glVertex2f(-0.35, 0.35);   // NOLINT
   glEnd();
+  // NOLINTEND(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }
 
 void GameEndBox::draw() const {
   drawAlertBox();
 
-  glColor4f(1.0, 0.4, 0.65, 1.0);
-  glRasterPos2f(-0.225, 0.05);
+  glColor4f(1.0, 0.4, 0.65, 1.0);                // NOLINT
+  glRasterPos2f(-0.225, 0.05);                   // NOLINT
+  const unsigned char gameOver[] = "GAME OVER";  // NOLINT
   glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,
-                   (const unsigned char *)"GAME OVER");
-  glColor4f(0.6, 0.1, 0.1, 1.0);
-  glRasterPos2f(-0.3, -0.05);
+                   static_cast<const unsigned char *>(gameOver));
+  glColor4f(0.6, 0.1, 0.1, 1.0);                   // NOLINT
+  glRasterPos2f(-0.3, -0.05);                      // NOLINT
+  const unsigned char yourScore[] = "YOUR SCORE";  // NOLINT
   glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,
-                   (const unsigned char *)"YOUR SCORE ");
+                   static_cast<const unsigned char *>(yourScore));
   std::string scoreText = std::to_string(score);
-  for (int i = 0; i < scoreText.size(); i++)
+  for (int i = 0; i < scoreText.size(); i++) {
     glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, scoreText[i]);
+  }
 }
