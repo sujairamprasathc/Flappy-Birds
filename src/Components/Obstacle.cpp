@@ -35,8 +35,6 @@ void Obstacle::reset() {
   }
 }
 
-float Obstacle::getHeight() const { return top_y; }
-
 void Obstacle::moveLeftBy(float displacement) {
   if (right_x < -1.0F) {
     this->reset();

@@ -7,7 +7,7 @@ class GameEndBox {
   static void drawAlertBox();
 
  public:
-  GameEndBox(unsigned);
+  explicit GameEndBox(unsigned);
 
   void draw() const;
 };

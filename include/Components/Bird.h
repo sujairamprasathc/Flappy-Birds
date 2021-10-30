@@ -14,7 +14,7 @@ class Bird {
   virtual Vertices computeVertices() const;
 
  public:
-  Bird(float);
+  Bird();
 
   virtual void draw() const;
   virtual Vertices getBoundingBox() const;

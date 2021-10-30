@@ -4,9 +4,7 @@
 using Vertex = std::pair<float, float>;
 using Vertices = std::vector<Vertex>;
 
-Bird::Bird(float verticalPosition) {
-  this->verticalPosition = verticalPosition;
-}
+Bird::Bird() : verticalPosition(0.0F) {}
 
 Vertices Bird::computeVertices() const {
   Vertices vertices(4);

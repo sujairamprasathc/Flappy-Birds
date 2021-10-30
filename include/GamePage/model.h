@@ -26,7 +26,7 @@ class GamePageModel {
   std::unique_ptr<PauseElement> pauseElement;
 
  public:
-  GamePageModel(ComponentFactory*);
+  explicit GamePageModel(ComponentFactory*);
 
   void subscribe(GamePageView*);
   void notify() const;

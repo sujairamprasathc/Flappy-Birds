@@ -47,7 +47,7 @@ class FlappyBird {
 
   void runGame();
   void render();
-  bool handleEvent(SDL_Event &);
+  bool handleEvent(const SDL_Event &);
   static void onGameOver();
 
  public:

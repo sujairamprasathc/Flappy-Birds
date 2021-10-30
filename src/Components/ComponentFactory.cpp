@@ -1,7 +1,7 @@
 #include "ComponentFactory.h"
 
 std::unique_ptr<Bird> ComponentFactory::createBird() const {
-  return std::unique_ptr<Bird>{new Bird(0.0F)};
+  return std::unique_ptr<Bird>{new Bird()};
 }
 
 std::unique_ptr<Building> ComponentFactory::createBuilding(

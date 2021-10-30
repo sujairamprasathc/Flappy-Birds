@@ -1,10 +1,8 @@
 #include "Building.h"
 #include <GL/gl.h>
 
-Building::Building(float height, float left, float right) {
-  top_left = {left, height};
-  bottom_right = {right, -1.0F};
-}
+Building::Building(float height, float left, float right)
+    : top_left{left, height}, bottom_right{right, -1.0F} {}
 
 void Building::draw() const {
   const float red = 0.289;

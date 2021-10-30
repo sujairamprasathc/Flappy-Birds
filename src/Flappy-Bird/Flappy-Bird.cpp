@@ -161,7 +161,7 @@ void FlappyBird::run() {
   }
 }
 
-bool FlappyBird::handleEvent(SDL_Event& e) {
+bool FlappyBird::handleEvent(const SDL_Event& e) {
   if (e.type == SDL_QUIT) {
     musicPlayer.stop();
     return false;

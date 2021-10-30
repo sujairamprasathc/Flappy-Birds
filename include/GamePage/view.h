@@ -15,7 +15,7 @@ class GamePageView : public View {
   void drawObstacle();
 
  public:
-  GamePageView(GamePageModel *model);
+  explicit GamePageView(GamePageModel *model);
   void render() override;
 };
 
