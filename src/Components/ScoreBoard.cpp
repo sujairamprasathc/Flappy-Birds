@@ -24,9 +24,11 @@ void Scoreboard::draw() const {
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, scoreText[i]);
   }
 
+  unsigned numScores = 0;
   unsigned high_Score = 0;
 
-  std::ifstream score_File("../data/scores.data", std::ios::in);
+  std::ifstream score_File("../res/scores.data", std::ios::in);
+  score_File >> numScores;
   score_File >> high_Score;
   score_File.close();
 

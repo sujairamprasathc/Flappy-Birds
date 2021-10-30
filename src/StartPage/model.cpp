@@ -23,7 +23,7 @@ void StartPageModel::subscribe(StartPageView *view) {
 }
 
 void StartPageModel::notify() const {
-  for (auto &view : this->observerList) {
+  for (const auto &view : this->observerList) {
     view->render();
   }
 }

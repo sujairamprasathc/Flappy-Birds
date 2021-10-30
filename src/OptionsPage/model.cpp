@@ -27,7 +27,7 @@ void OptionsPageModel::subscribe(OptionsPageView *view) {
 }
 
 void OptionsPageModel::notify() const {
-  for (auto &view : this->observerList) {
+  for (const auto &view : this->observerList) {
     view->render();
   }
 }

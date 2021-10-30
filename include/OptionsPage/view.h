@@ -11,7 +11,6 @@
 
 class OptionsPageView : public View {
   OptionsPageModel *model;
-  OptionsPageController *controller;
 
   SDL_Surface *gOptionsPage;
   SDL_Surface *gScreenSurface;
@@ -19,6 +18,10 @@ class OptionsPageView : public View {
 
  public:
   OptionsPageView(SDL_Window *, SDL_Surface *, OptionsPageModel *);
+  OptionsPageView(const OptionsPageView &) = delete;
+  OptionsPageView &operator=(const OptionsPageView &) = delete;
+  OptionsPageView(OptionsPageView &&) = default;
+  OptionsPageView &operator=(OptionsPageView &&) = default;
   ~OptionsPageView();
 
   void render() override;

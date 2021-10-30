@@ -2,12 +2,14 @@
 #include <GL/glut.h>
 
 // Defnitions to replace ASCII code during keyboard handling
-#define ENTER 13
-#define ESC 27
-#define SPACE 32
+constexpr unsigned ENTER = 13;
+constexpr unsigned ESC = 27;
+constexpr unsigned SPACE = 32;
+
+constexpr unsigned totalNumKeyCodes = 256;
 
 GamePageController::GamePageController(GamePageView *view, GamePageModel *model)
-    : is_Key_Pressed(255) {
+    : is_Key_Pressed(totalNumKeyCodes) {
   this->view = view;
   this->model = model;
 }
@@ -26,8 +28,11 @@ bool GamePageController::keyPressed(unsigned char key, int x, int y) {
       break;
   }
 
-  for (int i = 0; i < 256; i++)
-    if (key == i) is_Key_Pressed[i] = true;
+  for (int i = 0; i < totalNumKeyCodes; i++) {
+    if (key == i) {
+      is_Key_Pressed[i] = true;
+    }
+  }
 
   return true;
 }
@@ -36,8 +41,11 @@ bool GamePageController::keyReleased(unsigned char key, int x, int y) {
   /*
   Nothing much to do, just change states
   */
-  for (int i = 0; i < 256; i++)
-    if (key == i) is_Key_Pressed[i] = false;
+  for (int i = 0; i < totalNumKeyCodes; i++) {
+    if (key == i) {
+      is_Key_Pressed[i] = false;
+    }
+  }
   return true;
 }
 
@@ -68,8 +76,7 @@ void GamePageController::idleStateHandler() {
   }
 
   if (this->model->isGameOver()) {
-    glutHideWindow();
     this->model->pauseGame();
-    this->model->reset();
+    glutHideWindow();
   }
 }

@@ -9,29 +9,29 @@ Obstacle::Obstacle(unsigned type) {
 
 void Obstacle::init() {
   if (type == 1) {
-    left_x = 1.0F;                          // NOLINT
-    top_y = 0.2F - ((rand() % 8) / 10.0F);  // NOLINT
-    right_x = 1.2F;                         // NOLINT
-    bottom_y = -1.0F;                       // NOLINT
-  } else {
-    left_x = 2.1F;                             // NOLINT
+    left_x = 1.0F;                             // NOLINT
     bottom_y = 0.7F - ((rand() % 8) / 10.0F);  // NOLINT
-    right_x = 2.3F;                            // NOLINT
+    right_x = 1.2F;                            // NOLINT
     top_y = 1.0F;                              // NOLINT
+  } else {
+    left_x = 2.1F;                          // NOLINT
+    top_y = 0.2F - ((rand() % 8) / 10.0F);  // NOLINT
+    right_x = 2.3F;                         // NOLINT
+    bottom_y = -1.0F;                       // NOLINT
   }
 }
 
 void Obstacle::reset() {
   if (type == 1) {
-    left_x = 1.0F;                               // NOLINT
-    top_y = 0.2F - ((abs(rand()) % 8) / 10.0F);  // NOLINT
-    right_x = 1.2F;                              // NOLINT
-    bottom_y = -1.0F;                            // NOLINT
-  } else {
     left_x = 1.0F;                                  // NOLINT
     bottom_y = 0.7F - ((abs(rand()) % 8) / 10.0F);  // NOLINT
     right_x = 1.2F;                                 // NOLINT
     top_y = 1.0F;                                   // NOLINT
+  } else {
+    left_x = 1.0F;                               // NOLINT
+    top_y = 0.2F - ((abs(rand()) % 8) / 10.0F);  // NOLINT
+    right_x = 1.2F;                              // NOLINT
+    bottom_y = -1.0F;                            // NOLINT
   }
 }
 

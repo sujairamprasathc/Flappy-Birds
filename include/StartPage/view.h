@@ -11,7 +11,6 @@
 
 class StartPageView : public View {
   StartPageModel *model;
-  StartPageController *controller;
 
   SDL_Surface *gStartPage;
   SDL_Surface *gScreenSurface;
@@ -19,6 +18,10 @@ class StartPageView : public View {
 
  public:
   StartPageView(SDL_Window *, SDL_Surface *, StartPageModel *);
+  StartPageView(const StartPageView &) = delete;
+  StartPageView &operator=(const StartPageView &) = delete;
+  StartPageView(StartPageView &&) = default;
+  StartPageView &operator=(StartPageView &&) = default;
   ~StartPageView();
 
   void render() override;

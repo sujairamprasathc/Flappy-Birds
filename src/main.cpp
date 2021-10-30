@@ -33,8 +33,7 @@
 
 int main(int argc, char *argv[]) {
   GuiRoot *guiRoot = GuiRoot::getInstance();
-  guiRoot->render();
-  guiRoot->handleEvents();
+  guiRoot->run();
 
   return 0;
 }

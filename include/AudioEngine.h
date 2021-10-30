@@ -5,9 +5,16 @@
 #include <string>
 
 class MusicPlayer {
-  Mix_Music *gMusic;
+  Mix_Music* gMusic;
 
  public:
+  MusicPlayer();
+  MusicPlayer(const MusicPlayer&) = delete;
+  MusicPlayer& operator=(const MusicPlayer&) = delete;
+  MusicPlayer(MusicPlayer&&) = delete;
+  MusicPlayer& operator=(MusicPlayer&&) = delete;
+  ~MusicPlayer();
+
   bool play(std::string fName);
   void stop();
 };

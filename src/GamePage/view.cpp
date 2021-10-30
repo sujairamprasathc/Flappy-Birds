@@ -26,7 +26,10 @@ void GamePageView::render() {
   for (unsigned i = 0; i < 4; ++i) {
     this->model->getBuildings()[i]->draw();
   }
+
+  // NOLINTNEXTLINE(readability-static-accessed-through-instance)
   this->model->getMoon().draw();
+  // NOLINTNEXTLINE(readability-static-accessed-through-instance)
   this->model->getStars().draw();
 
   this->model->getBird().draw();
@@ -37,6 +40,7 @@ void GamePageView::render() {
   this->model->getScoreBoard().draw();
 
   if (this->model->isGamePaused()) {
+    // NOLINTNEXTLINE(readability-static-accessed-through-instance)
     this->model->getPauseElement().draw();
   }
 

@@ -19,6 +19,7 @@ class Bird {
   virtual void draw() const;
   virtual Vertices getBoundingBox() const;
 
+  virtual float getVerticalPosition() const;
   virtual void setVerticalPosition(float);
 };
 

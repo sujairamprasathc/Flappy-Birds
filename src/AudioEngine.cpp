@@ -1,5 +1,15 @@
 #include "AudioEngine.h"
 
+MusicPlayer::MusicPlayer() { gMusic = nullptr; }
+
+MusicPlayer::~MusicPlayer() {
+  if (gMusic != nullptr) {
+    Mix_FreeMusic(gMusic);
+  }
+  gMusic = nullptr;
+  Mix_Quit();
+}
+
 bool MusicPlayer::play(std::string fName) {
   const int output_sampling_frequency = 44100;
   const int output_channel = 2;  // 1 - mono, 2 - stereo
@@ -21,7 +31,8 @@ bool MusicPlayer::play(std::string fName) {
 
 void MusicPlayer::stop() {
   Mix_HaltMusic();
-  Mix_FreeMusic(gMusic);
+  if (gMusic != nullptr) {
+    Mix_FreeMusic(gMusic);
+  }
   gMusic = nullptr;
-  Mix_Quit();
 }

@@ -12,8 +12,7 @@
 class GamePageModel {
   std::vector<GamePageView*> observerList;
 
-  float position_of_bird;
-  float velocity_of_bird;
+  float velocity_of_bird{};
 
   bool _isGamePaused;
 
@@ -25,8 +24,6 @@ class GamePageModel {
   std::unique_ptr<Stars> stars;
   std::unique_ptr<Scoreboard> scoreBoard;
   std::unique_ptr<PauseElement> pauseElement;
-
-  void onGameOver();
 
  public:
   GamePageModel(ComponentFactory*);
@@ -54,8 +51,6 @@ class GamePageModel {
   float getVelocityOfBird();
   void setVelocityOfBird(float);
 
-  void createObstacle(int a);
-  void reset();
   bool isGameOver() const;
   void calcScore();
 

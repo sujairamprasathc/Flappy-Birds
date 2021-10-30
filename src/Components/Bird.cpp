@@ -41,6 +41,8 @@ void Bird::draw() const {
   glEnd();
 }
 
+float Bird::getVerticalPosition() const { return this->verticalPosition; }
+
 void Bird::setVerticalPosition(float verticalPosition) {
   this->verticalPosition = verticalPosition;
 }
