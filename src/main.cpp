@@ -29,11 +29,11 @@
  *                                                           *
  *************************************************************/
 
-#include "GuiRoot/GuiRoot.h"
+#include "Flappy-Bird/Flappy-Bird.h"
 
 int main(int argc, char *argv[]) {
-  GuiRoot *guiRoot = GuiRoot::getInstance();
-  guiRoot->run();
+  FlappyBird *flappyBird = FlappyBird::getInstance();
+  flappyBird->run();
 
   return 0;
 }

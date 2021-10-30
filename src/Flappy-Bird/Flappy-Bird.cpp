@@ -1,32 +1,33 @@
-#include "GuiRoot.h"
+#include "Flappy-Bird.h"
 
 #include "Components/ComponentFactory.h"
 
 #include <GL/freeglut.h>
 #include <semaphore.h>
 #include <unistd.h>
+#include <algorithm>
 #include <fstream>
 
-// NOLINTNEXTLINE: Allow non-const global variable as it is file scoped using
-// static
+// Allow non-const global variable as it is file scoped using static
+// NOLINTNEXTLINE
 static ComponentFactory factory;
 
-// NOLINTNEXTLINE: Allow non-const global variable as it is file scoped using
-// static
-static GamePageModel gamePageModel(&factory);  // NOLINT
-// NOLINTNEXTLINE: Allow non-const global variable as it is file scoped using
-// static
-static GamePageView gamePageView(&gamePageModel);  // NOLINT
-// NOLINTNEXTLINE: Allow non-const global variable as it is file scoped using
-// static
+// Allow non-const global variable as it is file scoped using static
+// NOLINTNEXTLINE
+static GamePageModel gamePageModel(&factory);
+// Allow non-const global variable as it is file scoped using static
+// NOLINTNEXTLINE
+static GamePageView gamePageView(&gamePageModel);
+// Allow non-const global variable as it is file scoped using static
+// NOLINTNEXTLINE
 static GamePageController gamePageController(&gamePageView, &gamePageModel);
 
-// NOLINTNEXTLINE: Allow non-const global variable as it is file scoped using
-// static
-static sem_t lock;  // NOLINT
-// NOLINTNEXTLINE: Allow non-const global variable as it is file scoped using
-// static
-static sem_t gameStartLock;  // NOLINT
+// Allow non-const global variable as it is file scoped using static
+// NOLINTNEXTLINE
+static sem_t lock;
+// Allow non-const global variable as it is file scoped using static
+// NOLINTNEXTLINE
+static sem_t gameStartLock;
 
 constexpr unsigned screenResolutionX = 640;
 constexpr unsigned screenResolutionY = 480;
@@ -72,9 +73,9 @@ void keyReleased(unsigned char key, int x, int y) {
   gamePageController.keyReleased(key, x, y);
 }
 
-GuiRoot* GuiRoot::instance = nullptr;  // NOLINT false positive
+FlappyBird* FlappyBird::instance = nullptr;  // NOLINT false positive
 
-GuiRoot::GuiRoot() : opt_Page(false), model(nullptr) {
+FlappyBird::FlappyBird() : opt_Page(false), model(nullptr) {
   // Initialize SDL2 with video and audio
   // TODO: handle error
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
@@ -117,7 +118,7 @@ GuiRoot::GuiRoot() : opt_Page(false), model(nullptr) {
   this->initOpenGl();
 }
 
-GuiRoot::~GuiRoot() {
+FlappyBird::~FlappyBird() {
   if (gWindow != nullptr) {
     SDL_DestroyWindow(gWindow);  // Destroy window
   }
@@ -126,9 +127,9 @@ GuiRoot::~GuiRoot() {
   SDL_Quit();  // Quit SDL subsystems
 }
 
-void GuiRoot::render() { this->view->render(); }
+void FlappyBird::render() { this->view->render(); }
 
-void GuiRoot::runGame() {
+void FlappyBird::runGame() {
   SDL_HideWindow(gWindow);
   glutShowWindow();
   sem_post(&gameStartLock);
@@ -140,7 +141,7 @@ void GuiRoot::runGame() {
   SDL_ShowWindow(gWindow);
 }
 
-void GuiRoot::run() {
+void FlappyBird::run() {
   this->render();
 
   SDL_Event e;  // Event handler
@@ -160,7 +161,7 @@ void GuiRoot::run() {
   }
 }
 
-bool GuiRoot::handleEvent(SDL_Event& e) {
+bool FlappyBird::handleEvent(SDL_Event& e) {
   if (e.type == SDL_QUIT) {
     musicPlayer.stop();
     return false;
@@ -197,7 +198,7 @@ bool GuiRoot::handleEvent(SDL_Event& e) {
   return true;
 }
 
-void GuiRoot::onGameOver() {
+void FlappyBird::onGameOver() {
   std::ifstream score_File("../res/scores.data", std::ios::in);
 
   unsigned numScores = 0;
@@ -228,14 +229,14 @@ void GuiRoot::onGameOver() {
   score_File.close();
 }
 
-GuiRoot* GuiRoot::getInstance() {
+FlappyBird* FlappyBird::getInstance() {
   if (instance == nullptr) {
-    instance = new GuiRoot;  // NOLINT
+    instance = new FlappyBird;  // NOLINT
   }
   return instance;
 }
 
-void GuiRoot::initOpenGl() {
+void FlappyBird::initOpenGl() {
   // Transition to complete OPENGL to handle game play and related graphics
 
   static bool alreadyInitialized = false;

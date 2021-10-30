@@ -1,5 +1,5 @@
-#ifndef FLAPPY_BIRD_GUI_ROOT_VIEW_H
-#define FLAPPY_BIRD_GUI_ROOT_VIEW_H
+#ifndef FLAPPY_BIRD_H
+#define FLAPPY_BIRD_H
 
 #include "StartPage/controller.h"
 #include "StartPage/model.h"
@@ -17,7 +17,7 @@
 
 #include <pthread.h>
 
-class GuiRoot {
+class FlappyBird {
   bool opt_Page;
 
   SDL_Window *gWindow;
@@ -39,11 +39,11 @@ class GuiRoot {
 
   pthread_t glutMailLoopThread{};
 
-  static GuiRoot *instance;  // NOLINT
+  static FlappyBird *instance;  // NOLINT
 
   void initOpenGl();
 
-  GuiRoot();
+  FlappyBird();
 
   void runGame();
   void render();
@@ -51,15 +51,15 @@ class GuiRoot {
   static void onGameOver();
 
  public:
-  ~GuiRoot();
-  GuiRoot(const GuiRoot &) = delete;
-  GuiRoot &operator=(const GuiRoot &) = delete;
-  GuiRoot(GuiRoot &&) = delete;
-  GuiRoot &operator=(GuiRoot &&) = delete;
+  ~FlappyBird();
+  FlappyBird(const FlappyBird &) = delete;
+  FlappyBird &operator=(const FlappyBird &) = delete;
+  FlappyBird(FlappyBird &&) = delete;
+  FlappyBird &operator=(FlappyBird &&) = delete;
 
-  static GuiRoot *getInstance();
+  static FlappyBird *getInstance();
 
   void run();
 };
 
-#endif  // FLAPPY_BIRD_GUI_ROOT_VIEW_H
+#endif  // FLAPPY_BIRD_H
