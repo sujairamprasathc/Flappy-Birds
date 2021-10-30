@@ -6,9 +6,13 @@
 GameEndBox::GameEndBox(unsigned score) { this->score = score; }
 
 void GameEndBox::drawAlertBox() {
-  // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-  glColor4f(1.0, 1.0, 1.0, 1.0);  // NOLINT
+  const float red = 0.4;
+  const float green = 1.0;
+  const float blue = 1.0;
+  const float alpha = 1.0;
+  glColor4f(red, green, blue, alpha);
 
+  // NOLINTBEGIN(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
   glBegin(GL_POLYGON);
   glVertex2f(-0.4, -0.4);  // NOLINT
   glVertex2f(0.4, -0.4);   // NOLINT

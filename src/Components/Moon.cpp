@@ -14,7 +14,11 @@ void Moon::draw() {
   const unsigned arc2StartAngle = 305;
   const unsigned arc2EndAngle = 345;
 
-  glColor4f(1.0, 1.0, 1.0, 1.0);  // NOLINT
+  const float red = 1.0;
+  const float green = 1.0;
+  const float blue = 1.0;
+  const float alpha = 1.0;
+  glColor4f(red, green, blue, alpha);
 
   glBegin(GL_POINTS);
 

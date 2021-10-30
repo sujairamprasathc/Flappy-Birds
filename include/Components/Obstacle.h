@@ -5,10 +5,10 @@
 #include <vector>
 
 class Obstacle {
-  float left_x;
-  float top_y;
-  float right_x;
-  float bottom_y;
+  float left_x{};
+  float top_y{};
+  float right_x{};
+  float bottom_y{};
 
   unsigned type;
 

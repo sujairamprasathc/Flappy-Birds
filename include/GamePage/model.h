@@ -17,13 +17,14 @@ class GamePageModel {
 
   bool _isGamePaused;
 
-  std::vector<Building*> buildings;
-  Bird* bird;
-  Obstacle *obstacle1, *obstacle2;
-  Moon* moon;
-  Stars* stars;
-  Scoreboard* scoreBoard;
-  PauseElement* pauseElement;
+  std::vector<std::unique_ptr<Building>> buildings;
+  std::unique_ptr<Bird> bird;
+  std::unique_ptr<Obstacle> obstacle1;
+  std::unique_ptr<Obstacle> obstacle2;
+  std::unique_ptr<Moon> moon;
+  std::unique_ptr<Stars> stars;
+  std::unique_ptr<Scoreboard> scoreBoard;
+  std::unique_ptr<PauseElement> pauseElement;
 
   void onGameOver();
 
@@ -41,7 +42,7 @@ class GamePageModel {
   const Bird& getBird() const;
   const Obstacle& getObstacle1() const;
   const Obstacle& getObstacle2() const;
-  const std::vector<Building*>& getBuildings() const;
+  const std::vector<std::unique_ptr<Building>>& getBuildings() const;
   const Moon& getMoon() const;
   const Stars& getStars() const;
   const Scoreboard& getScoreBoard() const;

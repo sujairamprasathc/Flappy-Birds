@@ -9,15 +9,17 @@
 #include "Scoreboard.h"
 #include "Stars.h"
 
+#include <memory>
+
 class ComponentFactory {
  public:
-  virtual Bird* createBird() const;
-  virtual Building* createBuilding(unsigned) const;
-  virtual Moon* createMoon() const;
-  virtual Obstacle* createObstacle(unsigned) const;
-  virtual PauseElement* createPauseElement() const;
-  virtual Scoreboard* createScoreboard() const;
-  virtual Stars* createStars() const;
+  virtual std::unique_ptr<Bird> createBird() const;
+  virtual std::unique_ptr<Building> createBuilding(unsigned) const;
+  virtual std::unique_ptr<Moon> createMoon() const;
+  virtual std::unique_ptr<Obstacle> createObstacle(unsigned) const;
+  virtual std::unique_ptr<PauseElement> createPauseElement() const;
+  virtual std::unique_ptr<Scoreboard> createScoreboard() const;
+  virtual std::unique_ptr<Stars> createStars() const;
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_COMPONENT_FACTORY_H

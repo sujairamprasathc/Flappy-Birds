@@ -66,7 +66,8 @@ const Obstacle& GamePageModel::getObstacle2() const {
   return *(this->obstacle2);
 }
 
-const std::vector<Building*>& GamePageModel::getBuildings() const {
+const std::vector<std::unique_ptr<Building>>& GamePageModel::getBuildings()
+    const {
   return this->buildings;
 }
 
@@ -80,23 +81,6 @@ const Scoreboard& GamePageModel::getScoreBoard() const {
 
 const PauseElement& GamePageModel::getPauseElement() const {
   return *(this->pauseElement);
-}
-
-void GamePageModel::createObstacle(int a) {
-  srand(time(NULL));
-
-  switch (a) {
-    case 1:
-      obstacle1 = new Obstacle(1);
-      break;
-
-    case 2:
-      obstacle2 = new Obstacle(2);
-      break;
-
-    default:
-      break;
-  }
 }
 
 void GamePageModel::reset() {

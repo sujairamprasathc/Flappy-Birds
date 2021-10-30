@@ -3,7 +3,7 @@
 
 class PauseElement {
  public:
-  void draw() const;
+  static void draw();
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_PAUSE_ELEMENT_H

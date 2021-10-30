@@ -3,7 +3,7 @@
 
 class Stars {
  public:
-  void draw() const;
+  static void draw();
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_STARS_H

@@ -1,28 +1,26 @@
 #include "PauseElement.h"
 #include <GL/gl.h>
 
-void PauseElement::draw() const {
-  glColor4f(1.0, 1.0, 1.0, 1.0);
+void PauseElement::draw() {
+  const float red = 1.0;
+  const float green = 1.0;
+  const float blue = 1.0;
+  const float alpha = 1.0;
+  glColor4f(red, green, blue, alpha);
 
-  glBegin(GL_TRIANGLES);
-  glVertex2f(-0.15, 0.15);
-  glVertex2f(-0.15, -0.15);
-  glVertex2f(-0.05, -0.15);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glVertex2f(-0.05, -0.15);
-  glVertex2f(-0.05, 0.15);
-  glVertex2f(-0.15, 0.15);
+  // Bar 1
+  glBegin(GL_POLYGON);
+  glVertex2f(-0.15, 0.15);   // NOLINT
+  glVertex2f(-0.15, -0.15);  // NOLINT
+  glVertex2f(-0.05, -0.15);  // NOLINT
+  glVertex2f(-0.05, 0.15);   // NOLINT
   glEnd();
 
-  glBegin(GL_TRIANGLES);
-  glVertex2f(0.15, 0.15);
-  glVertex2f(0.15, -0.15);
-  glVertex2f(0.05, -0.15);
-  glEnd();
-  glBegin(GL_TRIANGLES);
-  glVertex2f(0.05, -0.15);
-  glVertex2f(0.05, 0.15);
-  glVertex2f(0.15, 0.15);
+  // Bar 2
+  glBegin(GL_POLYGON);
+  glVertex2f(0.15, 0.15);   // NOLINT
+  glVertex2f(0.15, -0.15);  // NOLINT
+  glVertex2f(0.05, -0.15);  // NOLINT
+  glVertex2f(0.05, 0.15);   // NOLINT
   glEnd();
 }
