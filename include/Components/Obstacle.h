@@ -4,7 +4,9 @@
 #include <utility>
 #include <vector>
 
-class Obstacle {
+#include "Drawable.h"
+
+class Obstacle : public Drawable {
   float left_x{};
   float top_y{};
   float right_x{};
@@ -18,7 +20,7 @@ class Obstacle {
  public:
   explicit Obstacle(unsigned);
 
-  void draw() const;
+  void draw() const override;
 
   bool isPointInside(std::pair<float, float>) const;
   std::vector<std::pair<float, float>> getBoundingBox() const;

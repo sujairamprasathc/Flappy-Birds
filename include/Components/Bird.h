@@ -4,7 +4,9 @@
 #include <utility>
 #include <vector>
 
-class Bird {
+#include "Drawable.h"
+
+class Bird : public Drawable {
   using Vertex = std::pair<float, float>;
   using Vertices = std::vector<Vertex>;
 
@@ -16,7 +18,7 @@ class Bird {
  public:
   Bird();
 
-  virtual void draw() const;
+  void draw() const override;
   virtual Vertices getBoundingBox() const;
 
   virtual float getVerticalPosition() const;

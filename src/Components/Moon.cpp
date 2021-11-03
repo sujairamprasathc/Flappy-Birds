@@ -2,7 +2,7 @@
 #include <GL/gl.h>
 #include <cmath>
 
-void Moon::draw() {
+void Moon::draw() const {
   float h = 0.5F;  // NOLINT
   float k = 0.6F;  // NOLINT
   const float r1 = 0.1;

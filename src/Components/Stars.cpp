@@ -1,7 +1,7 @@
 #include "Stars.h"
 #include <GL/gl.h>
 
-void Stars::draw() {
+void Stars::draw() const {
   const float red = 1.0;
   const float green = 1.0;
   const float blue = 1.0;

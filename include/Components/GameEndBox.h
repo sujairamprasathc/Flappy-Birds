@@ -1,7 +1,9 @@
 #ifndef FLAPPY_BIRD_COMPONENTS_GAME_END_BOX_H
 #define FLAPPY_BIRD_COMPONENTS_GAME_END_BOX_H
 
-class GameEndBox {
+#include "Drawable.h"
+
+class GameEndBox : public Drawable {
   unsigned score;
 
   static void drawAlertBox();
@@ -9,7 +11,7 @@ class GameEndBox {
  public:
   explicit GameEndBox(unsigned);
 
-  void draw() const;
+  void draw() const override;
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_GAME_END_BOX_H

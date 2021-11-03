@@ -1,13 +1,15 @@
 #ifndef FLAPPY_BIRD_COMPONENTS_SCOREBOARD_H
 #define FLAPPY_BIRD_COMPONENTS_SCOREBOARD_H
 
-class Scoreboard {
+#include "Drawable.h"
+
+class Scoreboard : public Drawable {
   unsigned score;
 
  public:
   Scoreboard();
 
-  void draw() const;
+  void draw() const override;
 
   unsigned getScore() const;
   void setScore(unsigned);

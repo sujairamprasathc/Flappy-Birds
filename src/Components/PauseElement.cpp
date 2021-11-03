@@ -1,7 +1,7 @@
 #include "PauseElement.h"
 #include <GL/gl.h>
 
-void PauseElement::draw() {
+void PauseElement::draw() const {
   const float red = 1.0;
   const float green = 1.0;
   const float blue = 1.0;

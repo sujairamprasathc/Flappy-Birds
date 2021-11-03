@@ -1,9 +1,13 @@
 #ifndef FLAPPY_BIRD_COMPONENTS_STARS_H
 #define FLAPPY_BIRD_COMPONENTS_STARS_H
 
-class Stars {
+#include "Drawable.h"
+
+class Stars : public Drawable {
  public:
-  static void draw();
+  ~Stars() = default;
+
+  void draw() const override;
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_STARS_H

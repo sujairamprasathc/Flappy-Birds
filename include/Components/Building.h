@@ -3,14 +3,16 @@
 
 #include <utility>
 
-class Building {
+#include "Drawable.h"
+
+class Building : public Drawable {
   std::pair<float, float> top_left;
   std::pair<float, float> bottom_right;
 
  public:
   Building(float height, float left, float right);
 
-  void draw() const;
+  void draw() const override;
 
   void setTopLeft(std::pair<float, float>);
   void setBottomRight(std::pair<float, float>);

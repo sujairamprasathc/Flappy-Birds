@@ -1,9 +1,13 @@
 #ifndef FLAPPY_BIRD_COMPONENTS_MOON_H
 #define FLAPPY_BIRD_COMPONENTS_MOON_H
 
-class Moon {
+#include "Drawable.h"
+
+class Moon : public Drawable {
  public:
-  static void draw();
+  ~Moon() = default;
+
+  void draw() const override;
 };
 
 #endif  // FLAPPY_BIRD_COMPONENTS_MOON_H
