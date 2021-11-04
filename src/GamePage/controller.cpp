@@ -77,6 +77,5 @@ void GamePageController::idleStateHandler() {
 
   if (this->model->isGameOver()) {
     this->model->pauseGame();
-    glutHideWindow();
   }
 }

@@ -13,6 +13,8 @@
 #include "GamePage/model.h"
 #include "GamePage/view.h"
 
+#include "ResultPage/view.h"
+
 #include "AudioEngine.h"
 
 #include <pthread.h>
@@ -30,6 +32,8 @@ class FlappyBird {
   OptionsPageModel *optionsPageModel;
   OptionsPageView *optionsPageView;
   OptionsPageController *optionsPageController;
+
+  ResultPageView *resultPageView;
 
   MusicPlayer musicPlayer;
 

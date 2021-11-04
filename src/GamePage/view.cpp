@@ -16,13 +16,6 @@ void GamePageView::render() {
   glClearColor(0.0, 0.0, 0.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT);
 
-  if (this->model->isGameOver()) {
-    GameEndBox box(this->model->getScoreBoard().getScore());
-    box.draw();
-    glutSwapBuffers();
-    return;
-  }
-
   for (unsigned i = 0; i < 4; ++i) {
     this->model->getBuildings()[i]->draw();
   }

@@ -136,7 +136,16 @@ void FlappyBird::runGame() {
   gamePageModel.resumeGame();
   // Wait until game ends
   sem_wait(&lock);
+
+  // aNOLINTNEXTLINE raw pointer deleted manually
+  this->resultPageView =
+      new ResultPageView(gamePageModel.getScoreBoard().getScore());
+  resultPageView->render();
+  sleep(1);
+  delete resultPageView;
+
   onGameOver();
+  glutHideWindow();
   gamePageModel = GamePageModel(&factory);
   SDL_ShowWindow(gWindow);
 }

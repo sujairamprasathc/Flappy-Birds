@@ -13,6 +13,7 @@ add_subdirectory(src/OptionsPage/)
 add_subdirectory(src/GamePage/)
 add_subdirectory(src/Flappy-Bird/)
 add_subdirectory(src/Components/)
+add_subdirectory(src/ResultPage/)
 
 # Executable
 add_executable(Flappy-Birds src/main.cpp src/AudioEngine.cpp)
@@ -20,5 +21,5 @@ target_link_libraries(Flappy-Birds
   StartPageView StartPageController StartPageModel
   GamePageView GamePageController GamePageModel
   OptionsPageView OptionsPageController OptionsPageModel
-  Building Flappy-Bird)
+  ResultPageView Building Flappy-Bird)
 target_include_directories(Flappy-Birds PRIVATE include)

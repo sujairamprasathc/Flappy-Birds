@@ -16,8 +16,8 @@ void GameEndBox::drawAlertBox() {
   glBegin(GL_POLYGON);
   glVertex2f(-0.4, -0.4);  // NOLINT
   glVertex2f(0.4, -0.4);   // NOLINT
+  glVertex2f(0.4, 0.4);    // NOLINT
   glVertex2f(-0.4, 0.4);   // NOLINT
-  glVertex2f(0.4, -0.4);   // NOLINT
   glEnd();
 
   glColor4f(0.0, 0.0, 0.0, 0.0);  // NOLINT
