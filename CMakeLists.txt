@@ -16,7 +16,7 @@ add_subdirectory(src/Components/)
 add_subdirectory(src/ResultPage/)
 
 # Executable
-add_executable(Flappy-Birds src/main.cpp src/AudioEngine.cpp)
+add_executable(Flappy-Birds src/main.cpp src/AudioEngine.cpp src/model.cpp)
 target_link_libraries(Flappy-Birds
   StartPageView StartPageController StartPageModel
   GamePageView GamePageController GamePageModel

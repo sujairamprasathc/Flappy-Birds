@@ -30,12 +30,12 @@ void GamePageView::render() {
   this->model->getObstacle1().draw();
   this->model->getObstacle2().draw();
 
-  this->model->getScoreBoard().draw();
+  // this->model->getScoreBoard().draw();
 
   if (this->model->isGamePaused()) {
     // NOLINTNEXTLINE(readability-static-accessed-through-instance)
     this->model->getPauseElement().draw();
   }
 
-  glutSwapBuffers();
+  // glutSwapBuffers();
 }

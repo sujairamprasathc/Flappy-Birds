@@ -1,17 +1,12 @@
 #ifndef FLAPPY_BIRD_GAME_PAGE_MODEL_H
 #define FLAPPY_BIRD_GAME_PAGE_MODEL_H
 
-#include "decls.h"
-
-#include "view.h"
+#include "../model.h"
+#include "../view.h"
 
 #include "Components/ComponentFactory.h"
 
-#include <vector>
-
-class GamePageModel {
-  std::vector<GamePageView*> observerList;
-
+class GamePageModel : public Model {
   float velocity_of_bird{};
 
   bool _isGamePaused;
@@ -27,9 +22,6 @@ class GamePageModel {
 
  public:
   explicit GamePageModel(ComponentFactory*);
-
-  void subscribe(GamePageView*);
-  void notify() const;
 
   bool isGamePaused() const;
   void pauseGame();

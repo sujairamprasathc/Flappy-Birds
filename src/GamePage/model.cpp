@@ -17,16 +17,6 @@ GamePageModel::GamePageModel(ComponentFactory* factory)
   stars = factory->createStars();
 }
 
-void GamePageModel::subscribe(GamePageView* view) {
-  this->observerList.push_back(view);
-}
-
-void GamePageModel::notify() const {
-  for (const auto& view : this->observerList) {
-    view->render();
-  }
-}
-
 float GamePageModel::getPositionOfBird() const {
   return this->bird->getVerticalPosition();
 }

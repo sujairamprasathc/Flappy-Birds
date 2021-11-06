@@ -1,9 +1,32 @@
 #include "GameEndBox.h"
-#include <GL/freeglut.h>
 #include <GL/gl.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
 GameEndBox::GameEndBox(unsigned score) { this->score = score; }
+
+SDL_Texture *renderText(const std::string &message, const std::string &fontFile,
+                        SDL_Color color, int fontSize, SDL_Renderer *renderer) {
+  // Open the font
+  TTF_Font *font = TTF_OpenFont(fontFile.c_str(), fontSize);
+  if (font == nullptr) {
+    return nullptr;
+  }
+  // We need to first render to a surface as that's what TTF_RenderText
+  // returns, then load that surface into a texture
+  SDL_Surface *surf = TTF_RenderText_Blended(font, message.c_str(), color);
+  if (surf == nullptr) {
+    TTF_CloseFont(font);
+    return nullptr;
+  }
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surf);
+  if (texture == nullptr) {
+  }
+  // Clean up the surface and font
+  SDL_FreeSurface(surf);
+  TTF_CloseFont(font);
+  return texture;
+}
 
 void GameEndBox::drawAlertBox() {
   const float red = 0.4;
@@ -37,15 +60,12 @@ void GameEndBox::draw() const {
   glColor4f(1.0, 0.4, 0.65, 1.0);                // NOLINT
   glRasterPos2f(-0.225, 0.05);                   // NOLINT
   const unsigned char gameOver[] = "GAME OVER";  // NOLINT
-  glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,
-                   static_cast<const unsigned char *>(gameOver));
+
   glColor4f(0.6, 0.1, 0.1, 1.0);                   // NOLINT
   glRasterPos2f(-0.3, -0.05);                      // NOLINT
   const unsigned char yourScore[] = "YOUR SCORE";  // NOLINT
-  glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24,
-                   static_cast<const unsigned char *>(yourScore));
+
   std::string scoreText = std::to_string(score);
   for (int i = 0; i < scoreText.size(); i++) {
-    glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, scoreText[i]);
   }
 }

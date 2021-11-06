@@ -1,21 +1,14 @@
 #ifndef FLAPPY_BIRD_START_PAGE_MODEL_H
 #define FLAPPY_BIRD_START_PAGE_MODEL_H
 
-#include "decls.h"
+#include "../model.h"
+#include "../view.h"
 
-#include "view.h"
-
-#include <vector>
-
-class StartPageModel {
+class StartPageModel : public Model {
   int cursorPosition;
-  std::vector<StartPageView *> observerList;
 
  public:
   StartPageModel();
-
-  void subscribe(StartPageView *);
-  void notify() const;
 
   int getCursorPosition() const;
 

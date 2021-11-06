@@ -1,5 +1,4 @@
 #include "controller.h"
-#include <GL/glut.h>
 
 // Defnitions to replace ASCII code during keyboard handling
 constexpr unsigned ENTER = 13;
@@ -71,11 +70,22 @@ void GamePageController::idleStateHandler() {
     this->model->moveGraphicElementsLeft();
 
     this->model->calcScore();
-
-    glutPostRedisplay();
   }
 
   if (this->model->isGameOver()) {
     this->model->pauseGame();
   }
+}
+
+bool GamePageController::handleEvent(SDL_Event &event) {
+  int x = 0;
+  int y = 0;
+  if (event.type == SDL_KEYDOWN) {
+    SDL_GetMouseState(&x, &y);
+    return this->keyPressed(event.key.keysym.sym, x, y);
+  } else if (event.type == SDL_KEYUP) {
+    SDL_GetMouseState(&x, &y);
+    return this->keyReleased(event.key.keysym.sym, x, y);
+  }
+  return false;
 }

@@ -22,16 +22,6 @@ void OptionsPageModel::moveCursorUp() {
   notify();
 }
 
-void OptionsPageModel::subscribe(OptionsPageView *view) {
-  this->observerList.push_back(view);
-}
-
-void OptionsPageModel::notify() const {
-  for (const auto &view : this->observerList) {
-    view->render();
-  }
-}
-
 void OptionsPageModel::toggleSound() {
   this->_isSoundOn = !(this->_isSoundOn);
   notify();

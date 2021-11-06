@@ -17,13 +17,3 @@ void StartPageModel::moveCursorUp() {
   }
   notify();
 }
-
-void StartPageModel::subscribe(StartPageView *view) {
-  this->observerList.push_back(view);
-}
-
-void StartPageModel::notify() const {
-  for (const auto &view : this->observerList) {
-    view->render();
-  }
-}

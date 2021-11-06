@@ -11,19 +11,19 @@
 #include <SDL2/SDL.h>
 #include <vector>
 
-class GamePageController {
+class GamePageController : public Controller {
   GamePageView *view;
   GamePageModel *model;
 
   std::vector<bool> is_Key_Pressed;
 
+  bool keyPressed(unsigned char, int, int);
+  bool keyReleased(unsigned char, int, int);
+
  public:
   GamePageController(GamePageView *, GamePageModel *);
 
-  void handleEvent();
-
-  bool keyPressed(unsigned char, int, int);
-  bool keyReleased(unsigned char, int, int);
+  bool handleEvent(SDL_Event &) override;
 
   void idleStateHandler();
 };

@@ -3,12 +3,16 @@
 
 #include "decls.h"
 
-class Model {
- public:
-  Model();
+#include <vector>
 
-  void subscribe(View *);
-  void notify();
+class Model {
+  std::vector<View *> observerList;
+
+ public:
+  virtual ~Model() {}
+
+  virtual void subscribe(View *);
+  virtual void notify() const;
 };
 
 #endif  // FLAPPY_BIRD_MODEL_H

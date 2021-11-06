@@ -1,58 +1,37 @@
 #ifndef FLAPPY_BIRD_H
 #define FLAPPY_BIRD_H
 
-#include "StartPage/controller.h"
-#include "StartPage/model.h"
-#include "StartPage/view.h"
-
-#include "OptionsPage/controller.h"
-#include "OptionsPage/model.h"
-#include "OptionsPage/view.h"
-
-#include "GamePage/controller.h"
-#include "GamePage/model.h"
-#include "GamePage/view.h"
-
-#include "ResultPage/view.h"
+#include "controller.h"
+#include "model.h"
+#include "view.h"
 
 #include "AudioEngine.h"
 
-#include <pthread.h>
+#include <memory>
 
 class FlappyBird {
-  bool opt_Page;
+  unsigned viewId;
 
   SDL_Window *gWindow;
   SDL_Surface *gScreenSurface;
 
-  StartPageModel *startPageModel;
-  StartPageView *startPageView;
-  StartPageController *startPageController;
-
-  OptionsPageModel *optionsPageModel;
-  OptionsPageView *optionsPageView;
-  OptionsPageController *optionsPageController;
-
-  ResultPageView *resultPageView;
-
   MusicPlayer musicPlayer;
 
-  View *view;
   Model *model;
+  View *view;
   Controller *controller;
-
-  pthread_t glutMailLoopThread{};
 
   static FlappyBird *instance;  // NOLINT
 
-  void initOpenGl();
-
   FlappyBird();
 
-  void runGame();
   void render();
   bool handleEvent(const SDL_Event &);
-  static void onGameOver();
+  void onGameOver();
+  bool initOpenGl();
+  bool createWindow();
+  bool initWindowForOpenGl();
+  bool initWindowForSdl();
 
  public:
   ~FlappyBird();
@@ -62,6 +41,8 @@ class FlappyBird {
   FlappyBird &operator=(FlappyBird &&) = delete;
 
   static FlappyBird *getInstance();
+
+  void setViewId(unsigned);
 
   void run();
 };

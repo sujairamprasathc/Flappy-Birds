@@ -1,121 +1,46 @@
 #include "Flappy-Bird.h"
 
+#include "StartPage/controller.h"
+#include "StartPage/model.h"
+#include "StartPage/view.h"
+
+#include "OptionsPage/controller.h"
+#include "OptionsPage/model.h"
+#include "OptionsPage/view.h"
+
+#include "GamePage/controller.h"
+#include "GamePage/model.h"
+#include "GamePage/view.h"
+
+#include "ResultPage/view.h"
+
 #include "Components/ComponentFactory.h"
 
-#include <GL/freeglut.h>
+#include <SDL2/SDL_opengl.h>
 #include <semaphore.h>
 #include <unistd.h>
 #include <algorithm>
 #include <fstream>
-
-// Allow non-const global variable as it is file scoped using static
-// NOLINTNEXTLINE
-static ComponentFactory factory;
-
-// Allow non-const global variable as it is file scoped using static
-// NOLINTNEXTLINE
-static GamePageModel gamePageModel(&factory);
-// Allow non-const global variable as it is file scoped using static
-// NOLINTNEXTLINE
-static GamePageView gamePageView(&gamePageModel);
-// Allow non-const global variable as it is file scoped using static
-// NOLINTNEXTLINE
-static GamePageController gamePageController(&gamePageView, &gamePageModel);
-
-// Allow non-const global variable as it is file scoped using static
-// NOLINTNEXTLINE
-static sem_t lock;
-// Allow non-const global variable as it is file scoped using static
-// NOLINTNEXTLINE
-static sem_t gameStartLock;
 
 constexpr unsigned screenResolutionX = 640;
 constexpr unsigned screenResolutionY = 480;
 constexpr unsigned windowPositionX = 150;
 constexpr unsigned windowPositionY = 50;
 
-void* startGlutMainLoop(void* /*unused*/) {
-  sem_wait(&gameStartLock);
-  glutMainLoop();
-  return nullptr;
-}
-
-static void resize(int width, int height) {
-  /*
-  Handle what happens when OpenGL window is resized
-  */
-  const float ar = (float)width / (float)height;
-
-  glViewport(0, 0, width, height);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  glFrustum(-ar, ar, -1.0, 1.0, 2.0, 100.0);  // NOLINT
-
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-}
-
-void idle_State() {
-  gamePageController.idleStateHandler();
-  if (gamePageModel.isGameOver()) {
-    sem_post(&lock);
-    sem_wait(&gameStartLock);
-  }
-}
-
-void display() { gamePageView.render(); }
-
-void keyPressed(unsigned char key, int x, int y) {
-  gamePageController.keyPressed(key, x, y);
-}
-
-void keyReleased(unsigned char key, int x, int y) {
-  gamePageController.keyReleased(key, x, y);
-}
-
 FlappyBird* FlappyBird::instance = nullptr;  // NOLINT false positive
 
-FlappyBird::FlappyBird() : opt_Page(false), model(nullptr) {
+FlappyBird::FlappyBird() : viewId(1), model(nullptr) {
   // Initialize SDL2 with video and audio
   // TODO: handle error
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
     ;
   }
+  // Use OpenGL 2.1
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-  this->gWindow =
-      SDL_CreateWindow("FLAPPY BIRDS", windowPositionX, windowPositionY,
-                       screenResolutionX, screenResolutionY, SDL_WINDOW_SHOWN);
-  // TODO: handle error
-  if (gWindow == NULL) {
-    ;
-  }
-
-  this->gScreenSurface = SDL_GetWindowSurface(gWindow);  // Get window surface
-
-  // NOLINTNEXTLINE raw pointer deleted manually
-  this->startPageModel = new StartPageModel;
-  // NOLINTNEXTLINE raw pointer deleted manually
-  this->startPageView =
-      new StartPageView(gWindow, gScreenSurface, startPageModel);
-  // NOLINTNEXTLINE raw pointer deleted manually
-  this->startPageController =
-      new StartPageController(startPageView, startPageModel);
-
-  // NOLINTNEXTLINE raw pointer deleted manually
-  this->optionsPageModel = new OptionsPageModel;
-  // NOLINTNEXTLINE raw pointer deleted manually
-  this->optionsPageView =
-      new OptionsPageView(gWindow, gScreenSurface, optionsPageModel);
-  // NOLINTNEXTLINE raw pointer deleted manually
-  this->optionsPageController =
-      new OptionsPageController(optionsPageView, optionsPageModel);
-
-  this->view = startPageView;
-  this->controller = startPageController;
-
-  gamePageModel.pauseGame();
-
-  this->initOpenGl();
+  this->initWindowForSdl();
+  this->setViewId(1);
 }
 
 FlappyBird::~FlappyBird() {
@@ -127,27 +52,65 @@ FlappyBird::~FlappyBird() {
   SDL_Quit();  // Quit SDL subsystems
 }
 
-void FlappyBird::render() { this->view->render(); }
+void FlappyBird::setViewId(unsigned viewId) {
+  unsigned score;
+  GamePageModel* gamePageModel = nullptr;
+  if (this->viewId == 3) {
+    gamePageModel = dynamic_cast<GamePageModel*>(model);
+    score = gamePageModel->getScoreBoard().getScore();
+  }
+  delete controller;
+  delete view;
+  delete model;
 
-void FlappyBird::runGame() {
-  SDL_HideWindow(gWindow);
-  glutShowWindow();
-  sem_post(&gameStartLock);
-  gamePageModel.resumeGame();
-  // Wait until game ends
-  sem_wait(&lock);
+  switch (viewId) {
+    case 1:
+      if (this->viewId == 3 or this->viewId == 4) {
+        this->initWindowForSdl();
+      }
+      this->model = new StartPageModel();
+      this->view = new StartPageView(gWindow, gScreenSurface,
+                                     dynamic_cast<StartPageModel*>(model));
+      this->controller =
+          new StartPageController(dynamic_cast<StartPageView*>(view),
+                                  dynamic_cast<StartPageModel*>(model));
+      break;
+    case 2:
+      if (this->viewId == 3 or this->viewId == 4) {
+        this->initWindowForSdl();
+      }
+      this->model = new OptionsPageModel();
+      this->view = new OptionsPageView(gWindow, gScreenSurface,
+                                       dynamic_cast<OptionsPageModel*>(model));
+      this->controller =
+          new OptionsPageController(dynamic_cast<OptionsPageView*>(view),
+                                    dynamic_cast<OptionsPageModel*>(model));
+      break;
+    case 3: {
+      if (this->viewId == 1 or this->viewId == 2) {
+        this->initWindowForOpenGl();
+      }
+      ComponentFactory factory;
+      this->model = new GamePageModel(&factory);
+      this->view = new GamePageView(dynamic_cast<GamePageModel*>(model));
+      this->controller =
+          new GamePageController(dynamic_cast<GamePageView*>(view),
+                                 dynamic_cast<GamePageModel*>(model));
+    } break;
+    case 4:
+      this->model = nullptr;
+      this->view = new ResultPageView(score);
+      this->controller = nullptr;
+      break;
+  }
+  this->viewId = viewId;
+}
 
-  // aNOLINTNEXTLINE raw pointer deleted manually
-  this->resultPageView =
-      new ResultPageView(gamePageModel.getScoreBoard().getScore());
-  resultPageView->render();
-  sleep(1);
-  delete resultPageView;
-
-  onGameOver();
-  glutHideWindow();
-  gamePageModel = GamePageModel(&factory);
-  SDL_ShowWindow(gWindow);
+void FlappyBird::render() {
+  this->view->render();
+  if (this->viewId == 3 or this->viewId == 4) {
+    SDL_GL_SwapWindow(this->gWindow);
+  }
 }
 
 void FlappyBird::run() {
@@ -157,6 +120,19 @@ void FlappyBird::run() {
 
   // While application is running
   while (true) {
+    if (this->viewId == 3) {
+      dynamic_cast<GamePageController*>(controller)->idleStateHandler();
+      this->render();
+
+      if (dynamic_cast<GamePageModel*>(model)->isGameOver()) {
+        this->onGameOver();
+        this->setViewId(4);
+        this->render();
+        sleep(1);
+        this->setViewId(1);
+        this->render();
+      }
+    }
     // Handle events on queue
     while (SDL_PollEvent(&e) != 0) {
       if (controller->handleEvent(e)) {
@@ -178,15 +154,13 @@ bool FlappyBird::handleEvent(const SDL_Event& e) {
   if (e.type == SDL_KEYDOWN) {
     switch (e.key.keysym.sym) {
       case SDLK_RETURN:
-        if (!opt_Page) {
-          switch (startPageModel->getCursorPosition()) {
+        if (viewId == 1) {
+          switch (dynamic_cast<StartPageModel*>(model)->getCursorPosition()) {
             case 1:
-              runGame();
+              this->setViewId(3);
               break;
             case 2:
-              opt_Page = true;
-              view = optionsPageView;
-              controller = optionsPageController;
+              this->setViewId(2);
               break;
             case 0:
               musicPlayer.stop();
@@ -195,14 +169,12 @@ bool FlappyBird::handleEvent(const SDL_Event& e) {
         }
         break;
       case SDLK_ESCAPE:
-        if (opt_Page) {
-          opt_Page = false;
-          view = startPageView;
-          controller = startPageController;
+        if (viewId == 2) {
+          this->setViewId(1);
         }
         break;
     }
-    view->render();
+    this->render();
   }
   return true;
 }
@@ -220,7 +192,8 @@ void FlappyBird::onGameOver() {
 
   score_File.close();
 
-  highScores.push_back(gamePageModel.getScoreBoard().getScore());
+  highScores.push_back(
+      dynamic_cast<GamePageModel*>(model)->getScoreBoard().getScore());
   std::sort(highScores.begin(), highScores.end(), std::greater<>());
 
   constexpr unsigned maxNumScoresStorable = 10;
@@ -245,50 +218,89 @@ FlappyBird* FlappyBird::getInstance() {
   return instance;
 }
 
-void FlappyBird::initOpenGl() {
-  // Transition to complete OPENGL to handle game play and related graphics
+bool FlappyBird::initWindowForOpenGl() {
+  // Initialization flag
+  bool success = true;
 
-  static bool alreadyInitialized = false;
+  success = this->createWindow();
 
-  if (alreadyInitialized) {
-    glutShowWindow();
-    return;
+  // Create context
+  SDL_GLContext gContext;
+  gContext = SDL_GL_CreateContext(gWindow);
+  if (gContext == NULL) {
+    success = false;
+  } else {
+    // Do not use Vsync
+    if (SDL_GL_SetSwapInterval(0) < 0) {
+      success = false;
+    }
+
+    // Initialize OpenGL
+    success = this->initOpenGl();
   }
 
-  // Dummy arguments passed to OpenGL
-  int argc = 1;                    // NOLINT
-  char* argv[1] = {(char*)"app"};  // NOLINT
+  return success;
+}
 
-  // Initialize glut with arguments passed
-  glutInit(&argc, argv);  // NOLINT
-  glutInitDisplayMode(GLUT_SINGLE |
-                      GLUT_RGBA);  // Set the display mode to single buffering
-                                   // and RGBA(Alpha) mode
-  glutReshapeFunc(resize);  // Function to scale and get diplay ratios according
-                            // to new dimensions
-  glutInitWindowPosition(windowPositionX,
-                         windowPositionY);  // Set the window position
-  glutInitWindowSize(
-      screenResolutionX,
-      screenResolutionY);            // Set the window size, measured in pixels
-  glutCreateWindow("FLAPPY BIRDS");  // Set window title
-  glutDisplayFunc(
-      display);  // Register a callback func. to handle what to display
-  glutKeyboardFunc(
-      keyPressed);  // Register a callback func. to handle key-presses
-  glutKeyboardUpFunc(
-      keyReleased);          // Register a callback func. to handle key-releases
-  glutIdleFunc(idle_State);  // Register a callback func. to handle idle
-                             // situations(Nothing has happened during loop)
-  glutHideWindow();
+bool FlappyBird::initWindowForSdl() {
+  // Initialization flag
+  bool success = true;
 
-  // Start main loop in a separate thread
-  int threadId = pthread_create(&this->glutMailLoopThread, nullptr,
-                                startGlutMainLoop, nullptr);
+  success = this->createWindow();
 
-  if (threadId != 0) {
-    // TODO: Handle error
+  this->gScreenSurface = SDL_GetWindowSurface(gWindow);  // Get window surface
+
+  return success;
+}
+
+bool FlappyBird::createWindow() {
+  // Create window
+  if (gWindow != NULL) {
+    SDL_DestroyWindow(gWindow);
   }
+  this->gWindow = SDL_CreateWindow(
+      "FLAPPY BIRDS", windowPositionX, windowPositionY, screenResolutionX,
+      screenResolutionY, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+  if (gWindow == NULL) {
+    return false;
+  }
+}
 
-  alreadyInitialized = true;
+bool FlappyBird::initOpenGl() {
+  bool success = true;
+  GLenum error = GL_NO_ERROR;
+
+  // Initialize Projection Matrix
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+
+  // Check for error
+  /*error = glGetError();
+  if (error != GL_NO_ERROR) {
+    printf("Error initializing OpenGL! %s\n", gluErrorString(error));
+    success = false;
+  }*/
+
+  // Initialize Modelview Matrix
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  // Check for error
+  /*error = glGetError();
+  if (error != GL_NO_ERROR) {
+    printf("Error initializing OpenGL! %s\n", gluErrorString(error));
+    success = false;
+  }*/
+
+  // Initialize clear color
+  glClearColor(0.f, 0.f, 0.f, 1.f);
+
+  // Check for error
+  /*error = glGetError();
+  if (error != GL_NO_ERROR) {
+    printf("Error initializing OpenGL! %s\n", gluErrorString(error));
+    success = false;
+  }*/
+
+  return success;
 }
