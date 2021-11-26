@@ -30,3 +30,16 @@ cd bin
 make
 ```
 
+## Architecture Patterns Used
+
+The GUI component hierarchy is implemented loosely based on
+Presentation-Abstraction-Control.
+The different pages are implemented using Model-View-Controller.
+
+## Design Patterns Used
+
+* Abstract Factory
+* Singleton
+* Observer
+* State
+
