@@ -15,7 +15,7 @@ class MusicPlayer {
   MusicPlayer& operator=(MusicPlayer&&) = delete;
   ~MusicPlayer();
 
-  bool play(std::string fName);
+  bool play(const std::string& fName);
   void stop();
 };
 

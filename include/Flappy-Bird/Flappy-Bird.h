@@ -12,14 +12,14 @@
 class FlappyBird {
   unsigned viewId;
 
-  SDL_Window *gWindow;
-  SDL_Surface *gScreenSurface;
+  SDL_Window *gWindow{};
+  SDL_Surface *gScreenSurface{};
 
   MusicPlayer musicPlayer;
 
   Model *model;
-  View *view;
-  Controller *controller;
+  View *view{};
+  Controller *controller{};
 
   static FlappyBird *instance;  // NOLINT
 
@@ -28,7 +28,7 @@ class FlappyBird {
   void render();
   bool handleEvent(const SDL_Event &);
   void onGameOver();
-  bool initOpenGl();
+  static bool initOpenGl();
   bool createWindow();
   bool initWindowForOpenGl();
   bool initWindowForSdl();

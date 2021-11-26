@@ -9,7 +9,7 @@ class Model {
   std::vector<View *> observerList;
 
  public:
-  virtual ~Model() {}
+  virtual ~Model() = default;
 
   virtual void subscribe(View *);
   virtual void notify() const;

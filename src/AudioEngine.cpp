@@ -1,6 +1,6 @@
 #include "AudioEngine.h"
 
-MusicPlayer::MusicPlayer() { gMusic = nullptr; }
+MusicPlayer::MusicPlayer() : gMusic(nullptr) {}
 
 MusicPlayer::~MusicPlayer() {
   if (gMusic != nullptr) {
@@ -10,7 +10,7 @@ MusicPlayer::~MusicPlayer() {
   Mix_Quit();
 }
 
-bool MusicPlayer::play(std::string fName) {
+bool MusicPlayer::play(const std::string &fName) {
   const int output_sampling_frequency = 44100;
   const int output_channel = 2;  // 1 - mono, 2 - stereo
   const int output_chunksize = 2048;

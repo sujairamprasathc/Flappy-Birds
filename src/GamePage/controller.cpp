@@ -80,12 +80,13 @@ void GamePageController::idleStateHandler() {
 bool GamePageController::handleEvent(SDL_Event &event) {
   int x = 0;
   int y = 0;
-  if (event.type == SDL_KEYDOWN) {
-    SDL_GetMouseState(&x, &y);
-    return this->keyPressed(event.key.keysym.sym, x, y);
-  } else if (event.type == SDL_KEYUP) {
-    SDL_GetMouseState(&x, &y);
-    return this->keyReleased(event.key.keysym.sym, x, y);
+  switch (event.type) {
+    case SDL_KEYDOWN:
+      SDL_GetMouseState(&x, &y);
+      return this->keyPressed(event.key.keysym.sym, x, y);
+    case SDL_KEYUP:
+      SDL_GetMouseState(&x, &y);
+      return this->keyReleased(event.key.keysym.sym, x, y);
   }
   return false;
 }

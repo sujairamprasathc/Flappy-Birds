@@ -23,7 +23,7 @@ class GamePageController : public Controller {
  public:
   GamePageController(GamePageView *, GamePageModel *);
 
-  bool handleEvent(SDL_Event &) override;
+  bool handleEvent(const SDL_Event &) override;
 
   void idleStateHandler();
 };

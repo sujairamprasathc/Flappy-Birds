@@ -53,11 +53,13 @@ FlappyBird::~FlappyBird() {
 }
 
 void FlappyBird::setViewId(unsigned viewId) {
-  unsigned score;
+  unsigned score = 0;
   GamePageModel* gamePageModel = nullptr;
   if (this->viewId == 3) {
     gamePageModel = dynamic_cast<GamePageModel*>(model);
-    score = gamePageModel->getScoreBoard().getScore();
+    if (gamePageModel != nullptr) {
+      score = gamePageModel->getScoreBoard().getScore();
+    }
   }
   delete controller;
   delete view;
@@ -222,21 +224,21 @@ bool FlappyBird::initWindowForOpenGl() {
   // Initialization flag
   bool success = true;
 
-  success = this->createWindow();
+  success = this->createWindow();  // NOLINT false positive
 
   // Create context
-  SDL_GLContext gContext;
+  SDL_GLContext gContext = nullptr;
   gContext = SDL_GL_CreateContext(gWindow);
   if (gContext == NULL) {
     success = false;
   } else {
     // Do not use Vsync
     if (SDL_GL_SetSwapInterval(0) < 0) {
-      success = false;
+      success = false;  // NOLINT false positive
     }
 
     // Initialize OpenGL
-    success = this->initOpenGl();
+    success = FlappyBird::initOpenGl();
   }
 
   return success;
@@ -261,9 +263,7 @@ bool FlappyBird::createWindow() {
   this->gWindow = SDL_CreateWindow(
       "FLAPPY BIRDS", windowPositionX, windowPositionY, screenResolutionX,
       screenResolutionY, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-  if (gWindow == NULL) {
-    return false;
-  }
+  return gWindow != NULL;
 }
 
 bool FlappyBird::initOpenGl() {
@@ -293,7 +293,7 @@ bool FlappyBird::initOpenGl() {
   }*/
 
   // Initialize clear color
-  glClearColor(0.f, 0.f, 0.f, 1.f);
+  glClearColor(0.F, 0.F, 0.F, 1.F);
 
   // Check for error
   /*error = glGetError();

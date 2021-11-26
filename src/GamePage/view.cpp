@@ -36,6 +36,4 @@ void GamePageView::render() {
     // NOLINTNEXTLINE(readability-static-accessed-through-instance)
     this->model->getPauseElement().draw();
   }
-
-  // glutSwapBuffers();
 }

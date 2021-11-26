@@ -7,6 +7,8 @@
 
 class Controller {
  public:
+  virtual ~Controller() = default;
+
   virtual bool handleEvent(SDL_Event &) = 0;
 };
 

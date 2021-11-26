@@ -11,7 +11,7 @@ class ResultPageView : public View {
  public:
   ResultPageView(unsigned);
 
-  void render();
+  void render() override;
 };
 
 #endif  // FLAPPY_BIRD_RESULT_PAGE_VIEW_H
